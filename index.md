@@ -27,7 +27,9 @@ I am an individual contributor who loves to learn and experiment with new techno
         </a>
     </h3>
     </div>
-    {{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}
+    <p>
+        {{ post.excerpt | strip_html | strip_newlines | truncate: 100 }}
+    </p>
     <a href="{{ post.url | relative_url }}">Read More</a>
     </li>
 {% endfor %}
