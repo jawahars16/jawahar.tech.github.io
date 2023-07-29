@@ -1,5 +1,5 @@
 ---
-permalink: azure-architect-certification
+permalink: blog/azure-architect-certification
 layout: post
 title: Azure Solution Architect Certification
 date: "2021-08-16T22:12:03.284Z"

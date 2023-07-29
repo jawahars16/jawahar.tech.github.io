@@ -1,5 +1,5 @@
 ---
-permalink: why-you-should-not-care-about-deno
+permalink: blog/why-you-should-not-care-about-deno
 layout: post
 title: Why you shouldn't care about Deno?
 date: "2020-05-30T22:12:03.284Z"

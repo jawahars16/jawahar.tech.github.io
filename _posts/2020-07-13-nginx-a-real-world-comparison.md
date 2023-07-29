@@ -1,5 +1,5 @@
 ---
-permalink: nginx-a-real-world-comparison
+permalink: blog/nginx-a-real-world-comparison
 layout: post
 title: NGINX - a real world comparison
 date: "2020-07-13T22:12:03.284Z"

@@ -1,5 +1,5 @@
 ---
-permalink: no-more-dangling-pointers-with-rust
+permalink: blog/no-more-dangling-pointers-with-rust
 permalink: no-more-dangling-pointers-with-rust
 layout: post
 title: No more Dangling Pointers with Rust

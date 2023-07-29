@@ -1,5 +1,5 @@
 ---
-permalink: hybrid-vs-multi-vs-poly-cloud
+permalink: blog/hybrid-vs-multi-vs-poly-cloud
 layout: post
 title: Hybrid vs Multi vs Poly Cloud
 date: "2022-03-25T22:12:03.284Z"

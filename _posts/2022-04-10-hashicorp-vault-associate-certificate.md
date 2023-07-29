@@ -1,5 +1,5 @@
 ---
-permalink: hashicorp-vault-associate-certificate
+permalink: blog/hashicorp-vault-associate-certificate
 layout: post
 title: Hashicorp Vault Associate Certification
 date: "2022-04-10T22:12:03.284Z"

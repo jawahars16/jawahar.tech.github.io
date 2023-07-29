@@ -1,5 +1,5 @@
 ---
-permalink: aws-rds-upgrades-nightmare
+permalink: blog/aws-rds-upgrades-nightmare
 layout: post
 title: AWS RDS Upgrades - Every enginner's nightmare
 date: "2023-02-12T22:12:03.284Z"

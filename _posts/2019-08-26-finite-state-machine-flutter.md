@@ -1,5 +1,5 @@
 ---
-permalink: finite-state-machine-flutter
+permalink: blog/finite-state-machine-flutter
 layout: post
 title: Finite state machine in Flutter
 date: "2019-08-26T22:12:03.284Z"

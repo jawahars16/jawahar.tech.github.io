@@ -1,5 +1,5 @@
 ---
-permalink: the-art-of-polyglot-programming
+permalink: blog/the-art-of-polyglot-programming
 permalink: the-art-of-polyglot-programming
 layout: post
 title: The art of Polyglot Programming

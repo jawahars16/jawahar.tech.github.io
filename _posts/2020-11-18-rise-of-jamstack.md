@@ -1,5 +1,5 @@
 ---
-permalink: rise-of-jamstack
+permalink: blog/rise-of-jamstack
 layout: post
 title: Rise of Jamstack
 date: "2020-11-18T00:00:00.284Z"

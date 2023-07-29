@@ -1,5 +1,5 @@
 ---
-permalink: gcp-load-balancing-clearing-the-mist
+permalink: blog/gcp-load-balancing-clearing-the-mist
 layout: post
 title: GCP Load Balancing - Clearing the mist
 date: "2020-06-29T22:12:03.284Z"

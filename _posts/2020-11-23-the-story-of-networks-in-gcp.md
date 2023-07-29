@@ -1,5 +1,5 @@
 ---
-permalink: the-story-of-networks-in-gcp
+permalink: blog/the-story-of-networks-in-gcp
 layout: post
 title: The story of networks in GCP
 date: "2020-11-23T00:00:00.284Z"

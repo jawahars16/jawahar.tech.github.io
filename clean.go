@@ -27,13 +27,13 @@ func updatePermaLink() {
 		if file.Name() == ".DS_Store" {
 			continue
 		}
-		bits := strings.Split(file.Name(), "-")
-		// join the bits
-		fmt.Printf("%v\n", bits)
-		title := strings.Join(bits[3:], "-")
-		title = strings.Replace(title, ".md", "", 1)
+		// bits := strings.Split(file.Name(), "-")
+		// // join the bits
+		// fmt.Printf("%v\n", bits)
+		// title := strings.Join(bits[3:], "-")
+		// title = strings.Replace(title, ".md", "", 1)
 
-		println(title)
+		// println(title)
 		data, err := ioutil.ReadFile(fmt.Sprintf("%s/%s", path, file.Name()))
 		if err != nil {
 			log.Default().Print(err)
@@ -41,7 +41,7 @@ func updatePermaLink() {
 		}
 
 		content := string(data)
-		content = strings.Replace(content, "---", "---\npermalink: "+title, 1)
+		content = strings.Replace(content, "permalink: ", "permalink: blog/", 1)
 		// println(content)
 		data = []byte(content)
 		ioutil.WriteFile(fmt.Sprintf("%s/%s", path, file.Name()), data, 0644)

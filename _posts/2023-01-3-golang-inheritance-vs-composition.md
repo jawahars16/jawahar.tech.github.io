@@ -1,5 +1,5 @@
 ---
-permalink: golang-inheritance-vs-composition
+permalink: blog/golang-inheritance-vs-composition
 layout: post
 title: Golang - Inheritance vs Composition
 description: "Have you ever worked with a system, where it often end up in an unexpected state?"
