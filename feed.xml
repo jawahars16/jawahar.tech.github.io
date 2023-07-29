@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://jawahar.tech/feed.xml" rel="self" type="application/atom+xml" /><link href="https://jawahar.tech/" rel="alternate" type="text/html" /><updated>2023-07-29T04:06:45+00:00</updated><id>https://jawahar.tech/feed.xml</id><title type="html">Jawahar Selvaraj</title><subtitle>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</subtitle><author><name>Jawahar Selvaraj</name></author><entry><title type="html">AWS RDS Upgrades - Every enginner’s nightmare</title><link href="https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare" rel="alternate" type="text/html" title="AWS RDS Upgrades - Every enginner’s nightmare" /><published>2023-02-12T22:12:03+00:00</published><updated>2023-02-12T22:12:03+00:00</updated><id>https://jawahar.tech/blog/aws-rds-upgrades-nightmare</id><content type="html" xml:base="https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare"><![CDATA[<p>Upgrading a database is the stuff that nightmares are made of, especially when it comes to Amazon Web Services (AWS) Relational Database Service (RDS). It’s like trying to change a tire on a car that’s driving down the highway at 100 miles per hour! AWS RDS provides managed relational databases as a service, making it easier for businesses to set up, operate, and scale their databases in the cloud. But upgrading these databases to newer versions or modifying configuration settings can be a real hair-puller, causing downtime, data loss, and compatibility issues, making it an engineer’s nightmare. In this topic, we’ll explore the various aspects of upgrading an AWS RDS database, the common challenges faced, and best practices for a successful upgrade. So, grab a cup of coffee, sit back, and prepare to laugh (or cry) at the silly things that can go wrong during an RDS upgrade.</p>
+
+<h2 id="minor-version-upgrade">Minor version upgrade</h2>
+
+<p>Okay, let’s talk about minor version upgrades in AWS RDS.</p>
+
+<p>A minor version upgrade just means upgrading your database engine to a newer patch version within the same major version. For example, you’re currently running Amazon RDS for MySQL 5.7.23 and you want to upgrade to 5.7.24. This type of upgrade is generally considered the safer option because it’s just a small update to the database engine and AWS has already done their testing before releasing it.</p>
+
+<p>But still, even minor version upgrades can give you a headache if you’re not careful. That’s why it’s important to test everything thoroughly in a non-production environment before rolling it out to your live database.
+Upgrading is super easy, you can do it through the AWS Management Console, the AWS RDS API, or the AWS CLI. AWS RDS takes care of all the heavy lifting, like creating snapshots and spinning up a new instance with the updated version.</p>
+
+<p>So, to keep things running smoothly, it’s a good idea to keep your database engines up to date with the latest minor versions. But always make sure to plan your upgrade properly to avoid any unexpected downtime or data loss.</p>
+
+<p>Auto minor version upgrade</p>
+
+<p>Auto minor version upgrades allow you to automatically upgrade your database engine to the latest patch version within the same major version. This can be a time-saver, as you don’t have to manually initiate the upgrade every time a new patch version is released.
+However, it’s important to keep in mind that just because the upgrade is automated, doesn’t mean you can neglect testing it in a non-production environment first. Compatibility issues or unexpected problems can still arise, even with auto upgrades.</p>
+
+<p>Auto minor version upgrades are currently supported by the following database engines in AWS RDS:
+Amazon Aurora
+Amazon RDS for MySQL
+Amazon RDS for PostgreSQL
+Amazon RDS for MariaDB</p>
+
+<p>It’s important to note that the availability of auto minor version upgrades may vary depending on the specific version and edition of the database engine you are using. It’s always a good idea to check the AWS RDS documentation or reach out to AWS support to confirm the availability of auto minor version upgrades for your specific RDS instance.</p>
+
+<p><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Upgrading.html#USER_UpgradeDBInstance.Upgrading.AutoMinorVersionUpgrades">AWS Documentation</a></p>
+
+<h2 id="major-version-upgrade">Major version upgrade</h2>
+
+<p>Alright, let’s talk about major version upgrades in AWS RDS in a lighthearted way.
+So, you’ve been happily running Amazon RDS for MySQL 5.7 for a while now, but it’s time to upgrade to the latest and greatest version, MySQL 8.0. This is what we call a “major version upgrade.”</p>
+
+<p>Now, I know what you’re thinking, “Upgrading sounds like a blast! Can’t wait to spend my weekend watching database logs and holding my breath every time I hit the refresh button!” And you’re not wrong, major version upgrades can be a real nail-biter.</p>
+
+<p>The good news is, AWS RDS makes the process as smooth as possible, taking care of the heavy lifting for you and creating snapshots along the way. But it’s still important to thoroughly test the upgrade in a non-production environment first, just to make sure everything works as expected.</p>
+
+<p>So, why bother with a major version upgrade in the first place? Well, new versions often come with new features, improved performance, and increased security. Plus, it’s always fun to have the latest technology, right?</p>
+
+<p>In conclusion, while major version upgrades in AWS RDS can be a bit nerve-wracking, they are worth it in the end for the benefits they bring. And who knows, you might even have a little fun in the process! (Okay, maybe not, but you’ll have the satisfaction of knowing your database is up-to-date and running smoothly.)</p>
+
+<h2 id="blue-green-deployment">Blue Green Deployment</h2>
+
+<p>Let’s talk about blue-green deployment in AWS RDS, in a relaxed and informal manner.
+So, you’ve got a database running in AWS RDS and you want to deploy an update, but you don’t want to take any chances with downtime or disruptions. That’s where blue-green deployment comes in.</p>
+
+<p>In a blue-green deployment, you create two identical environments, one labeled “blue” and one labeled “green.” The “blue” environment is your current live database, while the “green” environment is the updated version of your database.
+Once the “green” environment is up and running, you switch all traffic over to it, making it the new live environment. If anything goes wrong, you can quickly switch back to the “blue” environment, which is still running the previous version of your database.</p>
+
+<p>This approach allows you to test the updated version of your database in a live environment before making it the primary one, reducing the risk of downtime or disruptions. It also makes rolling back to a previous version easier, if needed.
+In summary, blue-green deployment is a smart and safe way to deploy updates to your database in AWS RDS, allowing you to minimize the risk of downtime or disruptions and ensuring a smooth and seamless transition.</p>
+
+<blockquote>
+  <p>Currently, blue/green deployments are supported only for RDS for MariaDB and RDS for MySQL.</p>
+</blockquote>
+
+<p><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">AWS Documentation</a></p>
+
+<h2 id="database-migration-services-dms">Database Migration Services (DMS)</h2>
+
+<p>Let’s talk about using AWS Database Migration Service (DMS) for major version upgrades.</p>
+
+<p>So, you’ve got an old and creaky database that needs a major upgrade, but you don’t want to go through the hassle of manually migrating all the data. Enter AWS DMS to the rescue!</p>
+
+<p>AWS DMS is a fully managed service that makes it easy to migrate your databases from one version to another, including major version upgrades. Whether you’re moving from MySQL 5.7 to 8.0, or Oracle 11g to 19c, AWS DMS has you covered.</p>
+
+<p>The process is pretty straightforward. You set up a replication instance, create a source and target endpoint, and let AWS DMS handle the rest. It’ll take care of the data migration, ongoing replication, and even schema conversion if needed. And the best part? You don’t have to worry about any downtime. AWS DMS uses a continuous data replication technique, so your source database can stay up and running during the migration, with minimal disruption to your applications.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Well folks, we’ve come to the end of our discussion about AWS RDS upgrades, the stuff that keeps engineers up at night (or at least close to it!). But let’s not forget to end on a light note.</p>
+
+<p>Upgrading your RDS instances can be a daunting task, but with the right tools and strategies in place, it doesn’t have to be a total nightmare. Whether you’re using blue-green deployments, AWS DMS, or some other approach, the key is to plan ahead, test thoroughly, and always have a backup plan in case things go south.</p>
+
+<p>And, who knows, with the right attitude and a little bit of humor, you might even start to enjoy the upgrade process (or at least look back and laugh about it later!). So, let’s raise a glass to the brave engineers out there who tackle RDS upgrades head-on, and to a future filled with smooth and successful database upgrades. Cheers!</p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[Upgrading a database is the stuff that nightmares are made of, especially when it comes to Amazon Web Services (AWS) Relational Database Service (RDS). It's like trying to change a tire on a car that's driving down the highway at 100 miles per hour!]]></summary></entry><entry><title type="html">Hashicorp Vault Associate Certification</title><link href="https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate" rel="alternate" type="text/html" title="Hashicorp Vault Associate Certification" /><published>2022-04-10T22:12:03+00:00</published><updated>2022-04-10T22:12:03+00:00</updated><id>https://jawahar.tech/blog/hashicorp-vault-associate-certificate</id><content type="html" xml:base="https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate"><![CDATA[<p>On April 3, 2022, I successfully completed the requirements to be recognized as a Hashicorp Vault Associate.</p>
+
+<p><a href="https://www.credly.com/badges/4894e7d2-ca76-48e6-b40a-f1205131a82f/public_url">Badge issued in Credly</a></p>
+
+<p>For the last 3 months, I have been pairing with Hashicorp developers to setup production grade Vault clusters for an enterprise client. Though I had some knowledge and experience on secret management prior to this, there was a lot of learning especially in the last 3 months. Vault is one of the much sophisticated product (yes Hashicorp has other products like Terraform, Packer, Vagrant, Consul, etc) released by Hashicorp, especially for secret management.</p>
+
+<p>After practicing Vault for 3 months, I decided to take the certification. I learnt a lot during the pairing session with Hashicorp and of course who can teach you better than the actual product owners. 😀 But I still went through the <a href="https://learn.hashicorp.com/tutorials/vault/associate-study">study guide</a> proposed by Hashicorp for this certification.</p>
+
+<p>Study guide mostly point to their own documentation and concept overview sections in learn.hashicorp.com. Their documentation itself is a great source to clear this certification. They also have some <a href="https://learn.hashicorp.com/tutorials/vault/associate-questions?in=vault/associate-cert">sample questions</a> for those who want to understand the format of the questions.</p>
+
+<p>I have drafted few tips to prepare for the certification exam based on my experience,</p>
+
+<ul>
+  <li>
+    <p>There are very few scenario based questions, but it is still challenging to answer without practice. Just reading the documentation and getting a theoretical understanding is not enough.</p>
+  </li>
+  <li>
+    <p>Vault has both open source and enterprise version. You can use the open source version and spin out a local vault development environment within seconds. Below command creates a single server local dev environment. (This is only for dev environment and should not be used for production.)</p>
+
+    <p><code class="language-plaintext highlighter-rouge">vault server -dev</code></p>
+  </li>
+</ul>
+
+<h3 id="secret-engines">Secret Engines</h3>
+
+<ul>
+  <li>
+    <p>The core feature of Vault is secret engines and that is the reason why you use Vault. It is important to be aware of all the secret engines supported by Vault. No need to memorize, but should have a high level of knowledge of those.</p>
+  </li>
+  <li>
+    <p>Vault secret engines can be categorized into three - store, generate and encrypt. Vault KV can be used to store secrets. And there are few secret engines which can be used to generate credentials dynamically (like database, ssh, etc). Vault transit engine can be used to encrypt data.</p>
+  </li>
+  <li>Understand the differences between two versions (KV and KV V2). Practice KV secret engine a lot. Practice all the following activities in KV until you get comfortable.
+    <ul>
+      <li>Writing a secret</li>
+      <li>Retrieving a secret</li>
+      <li>Delete/Destroy a secret</li>
+      <li>Rollback a secret</li>
+      <li>List secrets</li>
+      <li>Undelete a secret</li>
+      <li>Patch a secret</li>
+    </ul>
+  </li>
+  <li>
+    <p>Try practicing at least a few dynamic secret engines. I recommend to try a database secret engine (postgres, mysql, etc). See how vault creates credentials for those databases and how it manage rotation, revoke, etc.</p>
+  </li>
+  <li>
+    <p>Have a very good understanding on leases. All dynamic secrets have a lease associated with them. Understand what you <u>can and cannot</u> do with a lease ID. I got a question like this - <u>Someone accidentally deleted a secret in database. Now how do you revoke the lease associated to that?</u> Make sure you practice all these scenarios.</p>
+  </li>
+  <li>Transit engine is an interesting one. You can definitely expect questions from it. Practice how to encrypt/decrypt data, how to rotate the encryption key, exporting the key, rewrap, etc. Keep in mind Vault never store encrypted data.</li>
+</ul>
+
+<h3 id="auth-method">Auth method</h3>
+
+<ul>
+  <li>
+    <p>This is another important feature of Vault. Vault provides a seamless way to authenticate, though your applications run in multiple environments like cloud, on-prem, etc. Vault supports multiple authentication methods. Make sure you are ware of all those auth methods.</p>
+  </li>
+  <li>
+    <p>Practice few auth methods especially userpass, github and approle. Have a good understanding of other methods as well. Understand which methods are <u>used for human, and which for machines</u>.</p>
+  </li>
+  <li>
+    <p>Get a detailed understanding of how tokens work. Tokens are the primary method of authentication. No matter which auth method you use, you are going to get a token at the end.</p>
+  </li>
+  <li>
+    <p>Some key things that need to be well understood,</p>
+    <ul>
+      <li>Difference between ttl and max-ttl.</li>
+      <li>Revoke and Renew a token.</li>
+      <li>Periodic tokens</li>
+      <li>Orphan tokens</li>
+      <li>Batch and Service tokens - when to use what.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="policies">Policies</h3>
+
+<ul>
+  <li>
+    <p>Every token is associated with one or more policies. Policies define what activities you can perform on particular resource within vault.</p>
+  </li>
+  <li>
+    <p>Resources like (secret engine, auth method, etc) are separated as mount paths. Have a good understanding on how the paths are structured and how to define it in policies.</p>
+  </li>
+  <li>
+    <p>How to use wildcards in policy paths to allow permissions on multiple paths.</p>
+  </li>
+  <li>
+    <p>In the exam, you might be given a policy and ask to choose all the valid statements. The statements define what permissions you will get with that policy.</p>
+  </li>
+</ul>
+
+<h3 id="others">Others</h3>
+
+<ul>
+  <li>
+    <p>Understand the architecture of Vault - encryption barrier, storage backends (what storage backends support HA and what not), cluster replication, etc.</p>
+  </li>
+  <li>
+    <p>Know the difference between Performance Replica and Disater Recovery replica.</p>
+  </li>
+  <li>
+    <p>Make sure you can perform activities through CLI, API and UI. There were some questions based on the Vault Web UI screenshots.</p>
+  </li>
+</ul>
+
+<hr />
+
+<p>The exam only supports online proctoring. That was a little challenging for me. I took other certification exams like GCP, Azure in Test centers, which was more comfortable. But with Hashicorp exams, there are no options except online. You need to have a clear desk, quiet room and a good internet connection.</p>
+
+<p>Online proctor might ask you to show the room in a 360 degree view. Make sure to use a personal laptop to avoid any MDM or firewall issues, which usually happens if you use office laptops. The exam was 1 hour long with 57 questions. At the end of the exam, you will know whether you pass or fail. But there is no clear information on the passing score. With good hands-on practice and good understanding of vault concepts, this certification is not a difficult one to pass.</p>
+
+<p>Good luck. 👍</p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[I successfully completed the requirements to be recognized as a Hashicorp Vault Associate.]]></summary></entry><entry><title type="html">Hybrid vs Multi vs Poly Cloud</title><link href="https://jawahar.tech/blog/2022-03-25-hybrid-vs-multi-vs-poly-cloud" rel="alternate" type="text/html" title="Hybrid vs Multi vs Poly Cloud" /><published>2022-03-25T22:12:03+00:00</published><updated>2022-03-25T22:12:03+00:00</updated><id>https://jawahar.tech/blog/hybrid-vs-multi-vs-poly-cloud</id><content type="html" xml:base="https://jawahar.tech/blog/2022-03-25-hybrid-vs-multi-vs-poly-cloud"><![CDATA[<p>Different types cloud designs can be adopted based on the needs of the organization. For example, a hybrid cloud is a combination of both Google cloud and on-premise cloud. A multi cloud is a combination of Google cloud and AWS duplicating the services. Cloud agnostic is the key in multi cloud design. A poly cloud is a combination of Google cloud and AWS with some specialized services utilized in each cloud.</p>
+
+<p>Below is a fair comparison of different cloud designs.</p>
+
+<p><img src="/assets/blog/2022-03-25-hybrid-vs-multi-vs-poly-cloud/cloud-page-2.png" alt="hybrid-cloud" /></p>
+
+<hr />
+
+<p><img src="/assets/blog/2022-03-25-hybrid-vs-multi-vs-poly-cloud/cloud-page-3.png" alt="multi-cloud" /></p>
+
+<hr />
+
+<p><img src="/assets/blog/2022-03-25-hybrid-vs-multi-vs-poly-cloud/cloud-page-4.png" alt="poly-cloud" /></p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[Different types cloud designs can be adopted based on the needs of the organization. For example, a hybrid cloud is a combination of both Google cloud and on-premise cloud.]]></summary></entry><entry><title type="html">Azure Solution Architect Certification</title><link href="https://jawahar.tech/blog/2021-08-16-azure-architect-certification" rel="alternate" type="text/html" title="Azure Solution Architect Certification" /><published>2021-08-16T22:12:03+00:00</published><updated>2021-08-16T22:12:03+00:00</updated><id>https://jawahar.tech/blog/azure-architect-certification</id><content type="html" xml:base="https://jawahar.tech/blog/2021-08-16-azure-architect-certification"><![CDATA[<p>On August 16, 2021, I successfully completed the requirements to be recognized as a <a href="https://www.credly.com/badges/547e9d3b-9988-4d9b-85d2-1af784a86776/public_url">Microsoft Certified: Azure Solutions Architect Expert</a>. I wanted to share my experience around preparing for the exam and the challenges.</p>
+
+<p>Last year (November 5, 2020) I completed Google Cloud Professional Cloud Architect certification and I also shared my experience in a <a href="https://jawahar.tech/blog/how-i-cleared-gcp-pca-certification-exam/">different article</a>. GCP Certification has one exam to get the certificate, whereas you need to pass below two exams to clear Azure Architect Certification.</p>
+
+<ul>
+  <li><a href="https://docs.microsoft.com/en-us/learn/certifications/exams/az-303">AZ-303: Microsoft Azure Architect Technologies</a></li>
+  <li><a href="https://docs.microsoft.com/en-us/learn/certifications/exams/az-304">AZ-304: Microsoft Azure Architect Design</a></li>
+</ul>
+
+<p>The above two exams assess different set of skills. The exam skills outline and the learning path is very clearly defined in the official website (link above) and got updated whenever there is a change.</p>
+
+<p>AZ-303 looks for detailed implementation skills, like - what are the mandatory sections in an ARM template, what address range to choose to avoid IP overlapping, which section to be checked to verify the recent infra deployments, etc. They look for a detailed understanding on the implementation of Azure Services.</p>
+
+<p>AZ-304 focuses mostly on the design part. Like - on a hub spoke model, where do you implement the firewall, fill the missing pieces in a typical n-tier architecture (yes you have to drag and drop the answers 😀), what is the minimum number of key vaults required for the given business requirement, etc. The exam expects sound knowledge on system design and Azure infrastructure.</p>
+
+<h2 id="learning-path">Learning path</h2>
+
+<p>Since this is an Expert level certificate (other levels are available like Associate and Fundamentals), the exam covers a vast number of topics in Azure. And Azure is already a very sophisticated cloud provider and offers a lot (really a lot !! 😱) of services. So it is needed to have a good understanding of all those services.</p>
+
+<p>For AZ-303, it is good to have some actual hands-on experience in Azure, since most of the questions are very detailed around implementation. An azure account can be created for free and it provides few all time free services and few 12 months free services. Also it gives a credit of $200 for the first month.</p>
+
+<p>https://azure.microsoft.com/en-in/free/</p>
+
+<p>I created an account and did some hands-on practices. After the first month, make sure you keep track of your spendings and stop the services after you experiment. Also I was actually working on a client project and Azure is the cloud provider. That makes my life easier , since I worked primarily with infrastructure in that project.</p>
+
+<p>There are a lot of online courses available for Azure exams. I took one on Udemy, curated by Alan Rodrigues. I am sure this is one of the most comprehensive courses available for Azure 303 and 304 exams. The course has around 27 hours of content and Alan explains each concept with nice visualizations and hands-on sessions. He has another course on AZ-304 as well, which is also really nice.</p>
+
+<p><a href="https://www.udemy.com/course/az-102-azure-administrator-certification-transition/"><img src="/assets/blog/2021-08-16-azure-architect-certification/udemy-course.png" alt="AZ-303 Azure Architect Technologies Certification 2021" /></a></p>
+
+<p>Another best way to prepare for these exams is to go through Microsoft Azure official documentation. Especially focus on the FAQs, or sections with topics “When to use XXXX service?” or a note with the title “Important”. Most questions in exams touch these areas.</p>
+
+<h2 id="exam-experience">Exam experience</h2>
+
+<p>The exam can be taken in a center or online. I always prefer to take these exams in a center rather than taking it at home through an online proctor. Taking the exam at home has a few challenges like - you need a clean desk, no firewalls in your laptop, scan the room with a camera and to the worst what if the internet fails in the middle. In a testing center, the infrastructure and the environment is taken care of by the test officials and you just need to focus on the exam. Also make sure to call the center before booking the slot, since some centers might be closed because of the pandemic.</p>
+
+<p>Once you complete the tests, you will get the report right away with the result of PASS or FAIL and a detailed split of your performance on different areas (unlike Google exams 😜). This gives a good idea on where you need to improve and where your strength is.</p>
+
+<h2 id="exam-format">Exam format</h2>
+
+<p>The exam has multiple choice questions and the number of questions typically vary I believe. I got 52 questions for AZ-303 and 61 questions for AZ-304 with a time limit for 150 minutes.</p>
+
+<p>The exam also contains case studies, which are the most difficult part of the exam. Unlike GCP, these case studies are not released to you prior to the exam. And no separate time will be given to read and understand the case studies (horrible… 🙄). Multiple questions will be given based on the case studies and the answers are usually hidden in one small requirement in the 3 to 4 paragraph long case study. Make sure you read and understand the case study clearly before jumping to questions. Time is crucial in these exams. So mark the questions for review, if you have doubts and move on to other questions.</p>
+
+<p>Good luck.</p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[I successfully completed the requirements to be recognized as a Microsoft Certified: Azure Solutions Architect Expert. I wanted to share my experience around preparing for the exam and the challenges.]]></summary></entry><entry><title type="html">Handling transient faults</title><link href="https://jawahar.tech/blog/2020-12-11-handling-transient-faults" rel="alternate" type="text/html" title="Handling transient faults" /><published>2020-12-11T00:00:00+00:00</published><updated>2020-12-11T00:00:00+00:00</updated><id>https://jawahar.tech/blog/handling-transient-faults</id><content type="html" xml:base="https://jawahar.tech/blog/2020-12-11-handling-transient-faults"><![CDATA[<p>Transient faults are temporary failures that happen in a system for a short period. After some time it recovers automatically without any human intervention. For example, consider you’re actually consuming a particular service, and the service might not be available, it might be very busy at that moment. And it might return you a failure response. After sometime, if you try the same request, it might succeed.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/transient-faults.png" alt="Transient Faults" title="Transient Faults" /></p>
+
+<p>It might sound silly, but it is actually real, this can happen. AWe need to now think about why handling transient fault is very important to the system design. Earlier everything was monolithic. If one domain wants to communicate to another domain, the communication has to happen through a local function. So there is nothing to worry about latency or reliability. But in case of a micro services application, a domain has to communicate to another domain across the network. And that’s where all the challenges comes into place.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/monolith.png" alt="Monolith" title="Monolith" /></p>
+
+<p>Because we all know the fact that,</p>
+
+<blockquote>
+  <p>Network is unreliable</p>
+</blockquote>
+
+<p>And the reason that I’m saying that network is unreliable is even now you can go to your internet browser and do a speed test. There are a lot of websites that will provide that option, right. You can just go ahead and do a speed test, it will tell you some 50 Mbps speed maybe. But after five minutes, if you try the same speed test again, it won’t give you the same result. The reason is - network always undergo a lot of fluctuations and its reliability is influenced by several factors.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/fallacies.png" alt="Fallacies" title="Fallacies" /></p>
+
+<p>This is one of the popular paper about distributed computing. This paper is actually talking about eight wrong assumptions an architect can have while doing the system design. If you look at the first two, three points, they are all talking about the network reliability because in distributed computing, network would become the major source of transient faults.</p>
+
+<h2 id="retry">Retry</h2>
+
+<p>Consider, for example, we are designing an e-commerce platform. The user has to update some kind of contact information in the system. So internally the website is actually raising a request to the user service. And for some reason, the user service is not available and it is busy, so it returns a timeout response. So now at this moment, we have to think about how to handle that failure. There are two approaches - either you can just throw the error to the user face and say the system is not available now and you can try it later. Or you can actually handle the retry internally. Then you might be able to provide a success response to the user.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/retry.png" alt="Retry" title="Retry" /></p>
+
+<h2 id="exponential-backoff">Exponential Backoff</h2>
+
+<p>And one thing that we have to note here is not every time we will get a success response after the first retry itself, there is no guarantee like that. So we may have to configure the system in such a way that it has to do multiple retries and then it gets a success response. So, while doing the multiple retries, there are several things that we have to consider, because the problem is, whenever service raising a request to the target server to process the request, the target service has to consume some amount of CPU and memory. And when the target service actually return a response, I mean, after it closed the connection and return the response, it’s not going to release the CPU and memory immediately, it will take some time to release the CPU and memory. If we keep retrying for every 1 second, the target service is going to consume a lot of resources, and it is going to put the whole system in trouble. So there are a lot of patterns around it how to solve this problem. One common pattern is, instead of having a static retry interval, we can increment the retry interval exponentially. For example, do retry in 1 second, and then increment to 2 second, and then 4 seconds like that. This pattern is actually called exponential back off. This will let the target service to release the resources, it gives enough time for the service to free the resources.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/exponential-backoff.png" alt="Exponential Backoff" title="Exponential Backoff" /></p>
+
+<p>Another thing we have to consider is what kind of retry pattern to adapt, and how many, and what is the limit of retries that we should keep in the system, because we can’t just do the retries indefinitely. So there must be some limit in the number of retries that we can do. This decision again depends on the business requirements and the needs.</p>
+
+<p>For example, in one of my project, we have a requirement like the user will be browsing the website. And from the background, we actually have to collect the user behaviour, we have to track the user behaviour and send that information to marketing system for some analytics purpose. The challenge here is the marking system might respond with the failure code sometimes. So we actually implemented a retry logic where the back end service will continue to do the retry, and then it will try to push the data to the marketing system successfully. So here, the thing here is the user is actually not waiting for any response from the system. Actually, the user don’t even know there is a background job running something like that and is actually collecting the data, except he clicked the <em>Accept Cookies</em> button. 😆 So it is totally okay to have large number of retries here, because the user is not waiting for any response. But in case if the user is actually waiting for the response, we have to carefully consider the pattern and the number of retries that we have to do because we may let the user wait for a longer time.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/marketing.png" alt="Marketing" title="Marketing" /></p>
+
+<p>In that case, we may have to return a failure code or a fallback response to the user. Another important thing to consider during the retries is, we should make sure that the retries are idempotent because some HTTP endpoints like POSTs are not idempotent. If you do a lot of POST retries, you might end up duplicating the data in the database. So that is something to consider.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/idempotent.jpg" alt="Idempotent" title="Idempotent" /></p>
+
+<h2 id="circuit-breaker">Circuit Breaker</h2>
+
+<p>Another common pattern to handle the transient fault is circuit breaker. This is one of the sophisticated pattern to handle the transient faults. The name circuit breaker actually comes from the field of electrical field. In case if there is a huge sudden spike in the electricity flow, the statute actually automatically opens so that the electricity flow doesn’t damage the other parts of the system. That’s the whole point of circuit breaker. We can actually apply the same concept in the software design as well. There are two reasons why we need circuit breaker to solve problems.</p>
+
+<p>One thing when the target service is responding with failure code, the service will do a lot of retries. But what if that is not a transient fault? What if it is a permanent failure? So your service might be doing a lot of requests again and again and it might put the whole system in trouble.</p>
+
+<p>Another important thing to consider is when you raise the request to the target service, it will take a considerable amount of time before it gives you a timeout response. That is one of the irritating thing, that you have to wait for so long time and then it will say it failed. So instead of waiting for longer time To fail, why can’t we fail fast. That is the whole concept of circuit breaker. Circuit breaker actually works like a state machine, it has three states one is half open, closed and open. Closed is the default state of a circuit breaker, which means you allow all the connections to go through. In case the target service returning the failure response and if it reached the failure threshold, it automatically move to the open state. In open state no connections are allowed. After some configurable time, it will move to the half open state which means it allows limited number of requests to go through and it checks if the target service is returning a failure response. If the service is returning a success response then it moves the state to the closed state which is again the usual state, where it allow all the requests to go through. But in case if the target service is returning a failure response, it goes to the open state where no connections are allowed.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/cb.png" alt="Circuit Breaker" title="Circuit Breaker" /></p>
+
+<p>This is another sophisticated method to handle the transient faults. And again, you don’t have to implement the pattern from the scratch, you don’t have to reinvent the wheel, there are a lot of tools and libraries available, which actually implemented the logic. We have to understand the underlying concept and we should be able to configure the values according to the business needs.</p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[All these days, web development has gone through several changes and improvements. Days are gone, when HTML, CSS and JS are hand-curated and deployed into a static storage server through FTP. With that approach, each HTML file might represent a web page and share common stylesheets and scripts.]]></summary></entry><entry><title type="html">Isolation - Containing System failures</title><link href="https://jawahar.tech/blog/2020-12-07-isolation-containing-system-failures" rel="alternate" type="text/html" title="Isolation - Containing System failures" /><published>2020-12-07T00:00:00+00:00</published><updated>2020-12-07T00:00:00+00:00</updated><id>https://jawahar.tech/blog/isolation-containing-system-failures</id><content type="html" xml:base="https://jawahar.tech/blog/2020-12-07-isolation-containing-system-failures"><![CDATA[<p>Isolation is the process of containing the components in a system so that any failure that happening to one part of the system wouldn’t propagate to the other part of the system. So basically, we have to contain the failures in a specific region within the system. So this concept can be achieved with the pattern called bulkhead pattern.</p>
+
+<h2 id="bulkhead">Bulkhead</h2>
+
+<p><img src="/assets/blog/2020-12-07-isolation-containing-system-failures/bulkhead.png" alt="Bulkhead" title="Bulkhead" /></p>
+
+<p>So this name bulkhead pattern arise from the concept of ship building. In case of ship building, they built multiple compartments within the ship, so in case of any hole appears in the ship and the water gets into it, the water will be contained within a particular compartment, it won’t propagate to the other regions of the ship. That is the whole concept of bulkhead. And the same can be applied to software design as well.</p>
+
+<p>You might wonder how failure in one system can propagate to other parts of the system in software system right? I’ll explain that by talking about one of the incident that happened to my project a few years back. Some 3 to 4 years back, I was actually working on a .NET project. It was an automobile dealer audit system. Our client was actually one of the most established automobile manufacturer. And they have dealers all around the country. So the auditor has to go to the dealer’s location and they have to validate all the documents, the invoices, the sales, the pricing and the discounts on everything. So we basically build a web application, which actually pulls the data from multiple dealers, and then store it in a local database. Auditor can just sign in to the application and they can explore and validate the data. So the application is all about number of data tables with some advanced search capabilities. The architecture of the application is straightforward. There is no micro services pattern or something. It was a simple monolithic application with the front end back end, and the database layer. And it was not even deployed in cloud, it was deployed in on premise infrastructure. The machine configuration is also average - one CPU and a 4 GB RAM, it’s not even a dual core.</p>
+
+<p>In this case the user actually requested another requirement in the system, which is the user should be able to download some reports from the application. The challenge here is, it’s not just a static report they want to download, it has to be dynamic. So whenever the user actually requested for a report, the system has to pull the data dynamically from the database, and then it has to construct the report. It could be PDF or excel, and then it has to upload the file to some kind of a file server, and then send a notification to the user back saying that the file is ready. Then the user can just go ahead and download it. The whole process was asynchronous, the user don’t have to wait for the report to be generated. They can just raise the request, and then they will get a notification later saying, that the report is ready.</p>
+
+<p><img src="/assets/blog/2020-12-07-isolation-containing-system-failures/das.png" alt="DAS" title="DAS" /></p>
+
+<p>So everything is done, we released the application to the production, everything went well. But after some days, users started complaining that the application is slowing down. And they specifically said that the application is slowing down only ~sometimes~. And that sometimes is the biggest challenge to us. Because you all know that right? If QA reported a bug, and if they say that the bug is reproduced only sometimes, then that will become the hardest issue to fix 😅. That is exactly the same thing happened in our project. The users were saying that the application is performing good sometimes, and slowing down sometimes. So we started looking into the issue.</p>
+
+<p>Our first suspicion was the database queries, because the database actually has millions and billions of data. And we have to query all the data, and produce the results to the users. So we thought that the queries may be inefficient, and that’s when the system is slowing down. But the thing is, that cannot be the case, because we were not writing any native SQL queries, we actually used a ORM. We used Entity Framework and it is one of the most popular and performant ORM for .NET. So we don’t have to write any kind of native SQL queries. So you just have to write the query in the programming language itself. And the Entity Framework will take care of converting the language integrated query (LINQ) into the corresponding SQL queries. And the good thing about EF is that it actually optimise the query as well. So there is no way that the queries are actually slowing down the system.</p>
+
+<p>And then we started looking into the logs. Biggest challenge here is the logs were distributed everywhere in the system, we don’t have any log aggregator installed in the application. So every process has its own set of logs, so we actually took the backend service logs. And then we compared those logs with the background jobs logs. Then we figured out that the request response for the backend service is longer only when the background job is running. We figured out that the background job is definitely the culprit here. What exactly is happening is whenever the user is requesting for a report, the background job started running. And then it started consuming all the CPU and memory, leaving no resource for the back end service to consume. And that is the moment the whole application is slowing down.</p>
+
+<p><img src="/assets/blog/2020-12-07-isolation-containing-system-failures/das-error.png" alt="DAS" title="DAS" /></p>
+
+<h2 id="resource-limiting">Resource limiting</h2>
+
+<p>This is where the isolation actually comes into picture. Ideally, we should isolate the resources for the background jobs and backend services. So that if anything happens in the background jobs, if there is a huge load on the background jobs, it shouldn’t impact our back end service. So it is always a best practice to enforce the resource limitation to the process that you’re running in any situations. Below you’re just seeing the examples of how to enforce the resource limitation to various process.</p>
+
+<p><img src="/assets/blog/2020-12-07-isolation-containing-system-failures/resources-limit.png" alt="Resource limt" title="Resource limt" /></p>
+
+<p>And one more thing is that this isolation can be implemented in process level and also at the function level. For example, consider you have a micro service based application - we have a web service instance and it has to talk to user service and recommendation service to get the recommendations. Now we have enforced isolation for the whole process. So we allocated some particular number of threads to that process. But in case, if the <code class="language-plaintext highlighter-rouge">getUsers()</code> function gets invoked a lot of times that function itself might end up consuming all the threads. And it won’t leave the <code class="language-plaintext highlighter-rouge">getRecommendations()</code> functions to not use of any the threads.</p>
+
+<p><img src="/assets/blog/2020-12-07-isolation-containing-system-failures/function-limit.png" alt="Resource limt in functions" title="Resource limt in functions" /></p>
+
+<p>So we should have design the system in such a way that these functions are invoked regularly by using the threads from the corresponding thread pool. And in case if it is running out of threads, that particular function should fail. It shouldn’t impact any other functions running in the system, the failure should be contained within that particular region. There are a lot of tools and frameworks available to enable this configuration.</p>
+
+<p><img src="/assets/blog/2020-12-07-isolation-containing-system-failures/hystrix.png" alt="Hystrix" title="Hystrix" /></p>
+
+<ul>
+  <li><a href="https://github.com/Netflix/Hystrix">Hystrix</a></li>
+  <li><a href="https://github.com/resilience4j/resilience4j">Resilience4j</a></li>
+  <li><a href="https://github.com/App-vNext/Polly">Polly</a></li>
+</ul>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[All these days, web development has gone through several changes and improvements. Days are gone, when HTML, CSS and JS are hand-curated and deployed into a static storage server through FTP. With that approach, each HTML file might represent a web page and share common stylesheets and scripts.]]></summary></entry><entry><title type="html">Building resilient system with redundancy</title><link href="https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy" rel="alternate" type="text/html" title="Building resilient system with redundancy" /><published>2020-12-05T00:00:00+00:00</published><updated>2020-12-05T00:00:00+00:00</updated><id>https://jawahar.tech/blog/building-resilient-system-with-redundancy</id><content type="html" xml:base="https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy"><![CDATA[<p>Redundancy is one of the common approach to provide resiliency to a system. So it means you’re actually duplicating the system components. So that in case if one component fails, the other can take the responsibility. Redundancy can be divided into two types, one is active-passive and another one is active-active. In case of active-passive one workload will be active, which is actually performing all the tasks and there is another workload that will be in passive state. In case of active-active both will be performing the task. So the major difference between these two models is - in case of active-passive model if the active workload goes down, there will be a manual intervention required to make the passive one active. But in case of active-active model, if one node goes down, the system will continue to operate without any issues. It looks like that the active-active model is more efficient here. But the decision between these two models has to be taken based on the business requirement.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/redundancy-types.png" alt="Redundancy" title="Redundancy" /></p>
+
+<p>So for example, let’s consider we are doing a website development and it requires two different environments - one is authoring environment and another one is consumer environment. Authoring environment is used by the content authors internally to upload the content to the system. The consumer environment is where the end users will be consuming the content.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/website.png" alt="Website" title="Website" /></p>
+
+<p>So if you look at this diagram, we are using active-passive model for the authoring environment and active-active model for the consumer environment. The decision is because, it is not mission critical if authoring instance goes down. It wouldn’t impact the business much because it is for internal use and the users also hardly 50 to 100 users only (vary based on organisation). So a little downtime is acceptable in this case. But in case of consumer environment, the real website environment, no downtime is acceptable. So in case if the instance goes down, it will directly impact the business. And hence the active-active model would be the right choice. So the decision between these two model actually depends on the business needs.</p>
+
+<p>And it looks like there is a very common understanding that if you duplicate the components in a system, it will automatically increase the availability. But it is <a href="https://www.eventhelix.com/RealtimeMantra/FaultHandling/system_reliability_availability.htm">mathematically proven</a>.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/availability.png" alt="Availability" title="Availability" /></p>
+
+<p>Consider two workloads connected in parallel, and each workload has an availability of 99%. Actually 99% is not a good uptime, because it actually leads to some three days of downtime every year. But consider that these two workloads connected in parallel. According to this formula, the overall availability will become 99.99%, which is a very good availability for the system. And it is more than that compared to the individual availability. The biggest advantage with this approach is if you just increase the replicas, the overall availability will increase much.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/availability-2.png" alt="Availability" title="Availability" /></p>
+
+<p>Another thing to consider in this case is whenever we do the system design, not all the redundant architecture are resilient. So you can design a redundant architecture, but that doesn’t mean it is resilient. I can explain that with a simple example.</p>
+
+<p>Consider there are two buildings. And these two buildings are actually connected by a wire under the ground. And consider we want to implement the redundancy pattern here. So we just duplicate the wire, so that in case if one goes down, the other one will take care of the system. Also the wire has to be intact for the buildings to operate. Now, one day, suddenly someone actually dig a hole in the neighbourhood and they just break both wires at the same time, the whole system will go down. So this is the reason I’m telling that the system can be redundant, but it doesn’t mean that it is highly resilient. The highly resilient system would look something like this.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/resilient-wrong.png" alt="Resiliency" title="Resiliency" /></p>
+
+<p>You put one wire above the ground and another wire below the ground. If the same issue happens and the wire that is under the ground goes down, the system will continue to work. The point is the system shouldn’t go down from a single source of failure.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/resilient-correct.png" alt="Resiliency" title="Resiliency" /></p>
+
+<p>Typically, in software architecture, especially in the cloud environment, we usually apply redundancy by duplicating the number of workloads that we use. If you look at the diagram, these workloads running inside a virtual machine. So now we have to think about the fact what happens if the virtual machine goes down that will put the whole system down right. So it is always a best practice to distribute your workloads across the virtual machines. So that in case if one machine goes down, other machine will take care of the system responsibility.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/vm.png" alt="VM" title="VM" /></p>
+
+<p>But again, if you look at the virtual machine has to run in some kind of a data centre. Basically, data centre is a place where your cloud provider actually keep all the configuration and your virtual machine might be running in one of the datacenter. Now the thing is what if the datacenter goes down, your whole system will again go down right. So it is a best practice to distribute the virtual machines across the datacenter. But most of the cloud providers do not provide you an option to choose the data centre. But they provide another option called availability zone. So you can choose an availability zone where you want to deploy those machines.</p>
+
+<p>The availability zone may not directly mapped to the data centre. Usually, availability zone can have more than one or two data centres as well. But the thing that we have to keep in mind here is these zones are actually located far from each other. So that if something happens in one zone, it will not impact the other zone. And at the same time, these zones are connected with high speed network for enabling high speed replication.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/az.png" alt="Availability Zone" title="Availability Zone" /></p>
+
+<p>And in some cases, the cloud providers logically group these availability zones under region. And some applications consider this multi region infrastructure. That is a good one. But it also has some downsides like the cost will be too high, and the replication will be slower.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/replication-lag.png" alt="Replication Lag" title="Replication Lag" /></p>
+
+<p>Also regional failure is a rare scenario - it’s not a thing that happen often. And one of the good example for multi region redundancy model is the CDN service. CDN has multiple edge locations around the globe. It serves the content to the users without any latency. But CDN also gives some advantages from the resiliency point of view as well. In case if the origin server goes down, the content will be still served to the users without any downtime for some period, because the content will be cached in all these edge locations. Though there are lot of options available for redundancy, the option has to be chosen based on business requirements.</p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[Redundancy is one of the common approach to provide resiliency to a system. So it means you're actually duplicating the system components. So that in case if one component fails, the other can take the responsibility.]]></summary></entry><entry><title type="html">The story of networks in GCP</title><link href="https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp" rel="alternate" type="text/html" title="The story of networks in GCP" /><published>2020-11-23T00:00:00+00:00</published><updated>2020-11-23T00:00:00+00:00</updated><id>https://jawahar.tech/blog/the-story-of-networks-in-gcp</id><content type="html" xml:base="https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp"><![CDATA[<p>A software system is a collection of several components connected to each other. Networking is crucial in any software system. It’s highly important in system design to plan and implement, how the different hardware/virtual components connected to each other. It is also important to understand the difference between private and public networks. A private network is limited and accessible only to your system whereas public network or internet is available to everyone. Of course, you are reading this post through public Internet. Consider you have to connect a printer in your home. Or you want to connect your mobile and PC to share files. You just have to enable a private communication between these devices. It doesn’t make any sense to expose your printer into a public network and connect to it.</p>
+
+<p>Google Cloud Platform offers a highly advanced managed service to manage networking - <strong>Virtual Private Cloud</strong> (VPC). As the name implies this is private network service offered by Google Cloud.</p>
+
+<h2 id="why-vpc">Why VPC?</h2>
+<p>Consider we have to design a 3-tier web application - a front end, a back end, and a database layer. Fronted layer accepts incoming requests from users and forward it to back end and back end forward that to database. To achieve this, three virtual machines (a GCP service that offers virtual servers in contrast to hardware servers) can be created. These machines have to be connected to each other. Without VPC each machines has to be exposed to the public Internet and connected using external IP address. The following diagram describes the same.</p>
+
+<p><img src="/assets/blog/2020-11-23-the-story-of-networks-in-gcp/without-vpc.jpg" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<p>The requests that flows between these machines has to go through public Internet every time, which introduce unnecessary latency, and it’s not secure as well. VPC service provided by Google is designed to connect virtual machines private to your GCP project without exposing your infrastructure resources to public. With this approach only the front end server has to be exposed to public Internet to accept incoming requests and other servers will be connected within private network and talk to each other.</p>
+
+<p><img src="/assets/blog/2020-11-23-the-story-of-networks-in-gcp/with-vpc.JPG" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<p>The good thing about Google VPC is that a default VPC comes along with every new GCP project and has connectivity across the globe. Also, by default it has subnets created for each region.</p>
+
+<p>Google takes care of creating these VPC resources automatically. Though it provides options to create custom VPC with custom subnets in defined regions, most of the times a default VPC serves the purpose. I still remember that I created and ran my first server in GCP without knowing anything about VPC. Google Cloud is known good keeping things simple.  This probably may not be the case in other Cloud providers. But understanding the GCP VPC in detail helps us designing the system better.</p>
+
+<h2 id="subnets">Subnets</h2>
+
+<p>Subnets are logical division of large network. Consider you are sending a gift to me and how do you specify the address? If you mention it as <strong>Jawahar, India</strong> (never do this !!! 😅), just assume how hard it is going to be for the post person to find me. To make it simpler, you could say the address as <strong>Jawahar, Chennai, India</strong>. That makes the search limited to Chennai.  Similar to that IP addresses can also represent the subnets in addition to network and device.</p>
+
+<p><img src="./subnets.svg" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<p>The concept of subnets has nothing to do with GCP, it is a general networking concept. But GCP provide options to manage subnets easily. A default VPC comes with predefined subnets for each region. All subnets come with an IP range. We just have to make sure that IP ranges are not overlapping. To get more control over the networking, it is highly recommended creating a custom VPC and define the subnets as per your needs.</p>
+
+<h2 id="firewalls">Firewalls</h2>
+
+<p>Security is another important aspect to be considered in networking. When multiple components connect to each other, it’s crucial to define who has access to what. GCP provides a handy way to define firewall rules. A firewall rule in GCP is composed of 6 key aspects. Let’s understand each one.</p>
+
+<p><img src="/assets/blog/2020-11-23-the-story-of-networks-in-gcp/firewalls.png" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<h3 id="network">Network</h3>
+
+<p>A GCP project can contain multiple networks. So this field helps to specify which network, the rule applies to. By default, this would point to default network. I have encountered issues with firewall rules several times and realized the network is not pointing to the right one. So this field important to keep in mind, if you use multiple custom VPCs.</p>
+
+<h3 id="priority">Priority</h3>
+
+<p>This is to specify in which order the rules has to be applied. Priority can be 0 to 65535. Lower the number, higher the priority. To follow the principle of the least privilege it is recommended the block all communications with lower priority and enable required communications using high priority firewall rules.</p>
+
+<h3 id="direction">Direction</h3>
+
+<p>This is to define whether we want to control the ingress (incoming) or egress (outgoing) traffic.</p>
+
+<h3 id="action">Action</h3>
+
+<p>This defines whether you want to allow or deny certain traffic. Pretty straight forward.</p>
+
+<h3 id="source--targets">Source / Targets</h3>
+
+<p>The target defines where the firewall rule should apply to. It could be either all instances in a specified network or applicable only to the instances with certain network tags. An IP range can be specified to control the source traffic. IP range 0.0.0.0/0 refers to public network.</p>
+
+<h3 id="protocols--port">Protocols / Port</h3>
+
+<p>This defines what protocol we want to allow/deny traffic to. Say for example, if you want to block SSH access to virtual machines, specify the port 22. Similar to that other TCP ports ca also be specified like http (80), https (443), RDP (3389) and so on. It also supports UDP and other protocols.</p>
+
+<p>By default VPC comes along with two implied firewall rules, one is to allow all egress traffic and deny all ingress traffic. Also it comes with 4 pre-populated rules in default network.</p>
+
+<ul>
+  <li>Allow all internal traffic within a network. (<code class="language-plaintext highlighter-rouge">default-allow-internal</code>)</li>
+  <li>Allow all SSH traffic to VMs from any source. (<code class="language-plaintext highlighter-rouge">default-allow-ssh</code>)</li>
+  <li>Allow all RDP traffic to VMs from any source. Remote Desktop Protocol for Windows. (<code class="language-plaintext highlighter-rouge">default-allow-rdp</code>)</li>
+  <li>Allow all ICMP traffic to VMs from any source. To allow <code class="language-plaintext highlighter-rouge">ping</code> commands to work. (<code class="language-plaintext highlighter-rouge">default-allow-icmp</code>)</li>
+</ul>
+
+<hr />
+
+<p>Google Cloud network services are powerful. Users get to use the same network infrastructure which powers Gmail, Google Search and Maps. Also, GCP is known for keeping things simple. You can deploy an application into GCP with limited effort in network and security features, since GCP provides a basic setup by default and provide options for advanced customizations.</p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[A software system is a collection of several components connected to each other. Networking is crucial in any software system. It’s highly important in system design to plan and implement, how the different hardware/virtual components connected to each other.]]></summary></entry><entry><title type="html">Rise of Jamstack</title><link href="https://jawahar.tech/blog/2020-11-18-rise-of-jamstack" rel="alternate" type="text/html" title="Rise of Jamstack" /><published>2020-11-18T00:00:00+00:00</published><updated>2020-11-18T00:00:00+00:00</updated><id>https://jawahar.tech/blog/rise-of-jamstack</id><content type="html" xml:base="https://jawahar.tech/blog/2020-11-18-rise-of-jamstack"><![CDATA[<p>All these days, web development has gone through several changes and improvements. Days are gone, when HTML, CSS and JS are hand-curated and deployed into a static storage server through FTP. With that approach, each HTML file might represent a web page and share common stylesheets and scripts. The approach sounds legacy and it is way outdated compared to the modern web development approaches. But the performance of that approach is incomparable. HTML files are readily available at the time of request and do not need any dynamic computation.</p>
+
+<p>But coupling content and presentation causes several other issues, including that the content/marketing team cannot operate independently without a development team. The need for a content management system arises and the database comes into the picture. Content gets stored independently in the database and a web service pulls the content from the database and constructs the HTML pages at runtime. A traditional LAMP-based web application looks like this.</p>
+
+<p><img src="/assets/blog/2020-11-18-rise-of-jamstack/lamp.png" alt="LAMP Stack" title="LAMP Stack" /></p>
+
+<p>##Current Challenges</p>
+
+<p>There are several challenges associated with this traditional approach, though this is one of the common web development approaches nowadays. A website needs to be faster, secured, and scalable. Let us focus on how this traditional approach addresses these needs.</p>
+
+<p>Browsers are evolving, mobile networks have improved a lot and users are becoming impatient. It is a must for websites to load faster than ever before or users are going to just abandon your website and move forward. Google considered website load time as a critical factor for search ranking. Facebook also announced that it will prioritize links that load quickly in its news feed over the ones that are slow to load.</p>
+
+<p><img src="/assets/blog/2020-11-18-rise-of-jamstack/web-performance.png" alt="Rise of Jamstack" title="Rise of Jamstack" /></p>
+
+<p><strong>Performance</strong> can be improved in a web application through various techniques. HTML pages are getting constructed at runtime and a database request is needed for every user request to the web page. Increasing the computing power of servers like CPU and memory would help. Also introducing caching at several levels might increase the load time of a web page.</p>
+
+<p><strong>Security</strong> is another challenge. With database and application servers running, it is necessary to make sure all the security patches are up to date and firewall rules in place to avoid any breaching. It was a well-known fact that millions of websites were compromised in 2014 due to a <a href="https://cyware.com/news/what-is-drupalgeddon-and-what-kind-of-targets-does-it-go-after-78f558ec/">security flaw in Drupal</a>. The so-called ‘<strong><em>Drupalgeddon</em></strong>’ vulnerability could have easily led to the exploitation of any systems running the vulnerable code.</p>
+
+<p>Web applications are supposed to be <strong>scalable</strong>, especially when it comes to public-facing e-commerce or marketing websites. When a marketing website starts a new campaign or an e-commerce site starts a big billion sale, the infrastructure should be flexible to support the high traffic. The strength of the infrastructure would be challenged not only by genuine human traffic but also through DoS (Denial of Service) attacks. Continuous monitoring is required to handle such problems and infrastructure needs to be scaled up and down as required. Autoscaling can be implemented through orchestration services like Kubernetes, but it comes with its complexity and other challenges.</p>
+
+<p>So very soon a LAMP stack based web application turns into something like below with more <strong>infrastructure maintenance</strong> nightmare. All of sudden continuous monitoring and security updates become non-trivial.</p>
+
+<p><img src="/assets/blog/2020-11-18-rise-of-jamstack/challenges.png" alt="Rise of Jamstack" title="Rise of Jamstack" /></p>
+
+<p><strong>Developer Experience</strong> is another important factor to consider. With the advancement in the Javascript ecosystem, several modern frontend javascript frameworks have been evolved to make the developer life easier. But in traditional LAMP-based projects, developers cannot leverage the advantages of modern Javascript frameworks like React or Angular, since the backend and frontend are tightly coupled to each other. Though it is still possible by server-side rendering (SSR), it simply adds complexity and puts limitations on the backend tech stack.</p>
+
+<p>##What is Jamstack?</p>
+
+<p>JAMStack is a new approach to building faster and more secure websites. Unlike LAMP or MEAN stack, JAMStack is not a set of technologies to build a web application. Instead, it is a set of guidelines and best practices to describe a modern web development architecture based on</p>
+
+<ul>
+  <li>Pre-built markup</li>
+  <li>Client-side Javascript</li>
+  <li>Reusable APIs</li>
+</ul>
+
+<p>###Pre-built markup</p>
+
+<p>One of the primary downsides of the traditional web development approach is - it constructs HTML pages at runtime. The construction requires content to be fetched from a data store and build pages using a rendering engine. Think about a static website, no matter who requests the page or from where it requested, the site is going to display the same content. Constructing the page for every request makes it a processing overhead. Simply those the pages can be built ahead of time and just deliver it to the user when requested. Static site generator is not a revolutionary idea, it’s been there for a long time. Hugo and Jekyll became so popular when Github pages landed. But websites are not just static.</p>
+
+<p>###Client-side Javascript</p>
+
+<p>Advancement in Javascript ecosystem enabled browsers to deliver a rich interactive web experience. I still remember when I started my career as a web developer a few years back, I hate Javascript so much. I consider it as a toy language - it can be used only to manipulate web elements. But the growth of Javascript in recent years has been astonishing. Modern frameworks like React and Angular made it possible to build enterprise applications completely using Javascript. The combination of pre-built makeup and client-side Javascript makes the web more powerful. But that’s not the end, the web still needs server-side processing. Think about a website that enables online payment, how about a CPU intensive logic that cannot run in a browser, what about data persistence.</p>
+
+<p>###Re-usable APIs</p>
+
+<p>JAMStack recommends server-side processing using APIs or serverless platforms like cloud functions. A website that needs to enable payment can use services like <a href="https://stripe.com/">Stripe</a> or a website that needs search functionality can use <a href="https://www.algolia.com/">Algolia</a>. CPU intensive operations like image processing or document manipulation can be achieved using cloud functions. Microservice based architecture and serverless platforms are the future, so leveraging their advantages in web development makes the JAMStack even more powerful.</p>
+
+<p>The architecture of a typical JAMStack based web application looks like below,</p>
+
+<p><img src="/assets/blog/2020-11-18-rise-of-jamstack/jamstack.png" alt="Rise of Jamstack" title="Rise of Jamstack" /></p>
+
+<h2 id="why-is-jamstack-the-solution">Why is JAMStack the solution?</h2>
+
+<p>The above diagram represents an approach that solves the problem we discussed earlier. The entire architectural flow can be divided into build-time and runtime. There is no heavy computation happening in the runtime since the assets were pre-built and available to serve. Lack of servers in the runtime reduces security vulnerabilities to a greater extent. And with microservice-based APIs for server-side processing, it has less surface area for security attacks compared to monolithic platforms like Drupal.</p>
+
+<p>Delivering the pre-built markups through CDN gives amazing performance compared to any traditional web approaches. The build process still requires some servers to automate the process of building the assets as soon as the content gets updated. But those are not public faced and any security or performance issues in build time are not going to impact the end-users. Developers can also leverage modern tools to build applications. Frameworks like <a href="https://www.jawahar.tech/blog/gatsby-in-a-nutshell/">Gatsby</a> and <a href="https://nuxtjs.org/">Nuxt</a> provide the advantages of both modern Javascript frameworks and static site generators. The approach gives freedom to front end developers and makes them the inevitable part of the development team, unlike the traditional LAMP stack.</p>
+
+<p>JAMStack also recommends a few best practices like Git-based workflow, automated builds, atomic deployments and instant cache invalidation. Though JAMStack is a new way of building web applications and making it through web development recently, enterprise CMS products are also considering this in their package. For example, <a href="https://docs.adobe.com/content/help/en/experience-manager-64/developing/headless/spas/spa-overview.html">Adobe Experience Manager</a> and <a href="https://jss.sitecore.com/">Sitecore</a> have solutions to build web applications entirely using modern Javascript frameworks and build it ahead of time and enabling the option to deploy it in any cloud-based platforms like AWS S3 or Netlify. JAMStack has great potential in becoming the default approach for web development.</p>
+
+<h2 id="tldr">TL;DR</h2>
+
+<p><a href="https://www.netlify.com/jamstack/">JAMStack</a> is a new trend in web development that tries to solve certain challenges in today’s traditional approach. Approaches like the LAMP stack expect the system to build the pages for every request by fetching the content from the store at runtime. This puts a huge penalty in performance and security. JAMStack is not a framework or library whereas it is a set of practices to make web development efficient and easier. The use of pre-built markup along with client-side javascript and reusable APIs creates a new perspective on web development and helps to build faster, secure and scalable web applications.</p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[All these days, web development has gone through several changes and improvements. Days are gone, when HTML, CSS and JS are hand-curated and deployed into a static storage server through FTP. With that approach, each HTML file might represent a web page and share common stylesheets and scripts.]]></summary></entry><entry><title type="html">How I cleared GCP Cloud Architect certification</title><link href="https://jawahar.tech/blog/2020-11-09-how-i-cleared-gcp-pca-certification-exam" rel="alternate" type="text/html" title="How I cleared GCP Cloud Architect certification" /><published>2020-11-09T22:12:03+00:00</published><updated>2020-11-09T22:12:03+00:00</updated><id>https://jawahar.tech/blog/how-i-cleared-gcp-pca-certification-exam</id><content type="html" xml:base="https://jawahar.tech/blog/2020-11-09-how-i-cleared-gcp-pca-certification-exam"><![CDATA[<p>I started practising Google cloud platform couple of years back, working mostly with Google Kubernetes engine and other few services like compute engine, networks and firewalls. Though I had a considerable amount of experience in software development, cloud computing was one of my new areas to explore. During this period I had the chance to work with AWS as well, but I liked Google cloud because of its simplicity. My initial plan was to spend a week to prepare and take the exam. (Very bad idea 😭). But I end up preparing for 4 weeks before taking the exam. In this article, I am sharing my experience and the learning materials I used while preparing for the exam.</p>
+
+<h2 id="learning-resources">Learning resources</h2>
+
+<p>Google’s official page for Cloud Architect certification covers the actual exam guide. It is good to go through it and understand what exactly Google expecting from us in this exam. Google also suggests few learning materials to use to prepare for the exam. But in this article, I will talk about what I have used in my exam preparation.</p>
+
+<h3 id="official-google-cloud-certified-pca-study-guide">Official Google Cloud Certified PCA Study Guide</h3>
+
+<p><a href="https/assets/blog/2020-11-09-how-i-cleared-gcp-pca-certification-exam//www.wiley.com/en-in/Official+Google+Cloud+Certified+Professional+Cloud+Architect+Study+Guide-p-9781119602491" rel="some text"><img src="/assets/blog/2020-11-09-how-i-cleared-gcp-pca-certification-exam/pca-study-guide.jpg" alt="PCA Study Guide" title="PCA Study Guide" /></a></p>
+
+<p>This is a very good starting place to prepare for the exam. The book does not only help you to prepare for the exam but also help you to understand the core services available in GCP if you are a beginner. The book comes with a question bank with more than 300 sample questions to prepare. Though these questions do not represent the actual questions in the exam, it helps us to validate our understanding of the concepts learnt.</p>
+
+<h3 id="coursera--pluralsight">Coursera / Pluralsight</h3>
+
+<p>Pluralsight and Coursera have several courses related to Google Cloud Platform which helps in understanding core concepts. It also has some GCP PCA exam-specific courses, which guides us exactly from the exam perspective. In my experience, I felt like both Pluralsight and Coursera courses are almost similar and looks like the content is curated by the same team. So preparing either one should be more than enough. I used Pluralsight since I already had the subscription. While doing these courses, it is highly advised to take the hands-on labs. If you are new to GCP platform, taking those hands-on labs would really help to answer some deep technical questions in the exam.</p>
+
+<p><a href="https://www.pluralsight.com/courses/preparing-google-cloud-professional-cloud-architect-exam-update">PluralSight Course</a></p>
+
+<p><a href="https://www.coursera.org/learn/preparing-cloud-professional-cloud-architect-exam">Coursera Course</a></p>
+
+<h3 id="linux-academy">Linux Academy</h3>
+
+<p>This is one of the best learning material compared to any other resources. The whole course is curated clearly from the exam perspective and each and every statement in that course is important as it is connected directly to some questions in the exam. They also included several hands-on labs, and it is highly recommended taking those. I have seen two courses in Linux Academy related to GCP PCA and I felt both are useful.</p>
+
+<p><a href="https://acloud.guru/learn/gcp-certified-professional-cloud-architect">Google Certified Professional Cloud Architect 2020</a></p>
+
+<p><a href="https://acloud.guru/learn/73e7ac67-e0f4-4cb6-ab6f-5e2bf7f22a04">Google Cloud Certified Professional Cloud Architect (LA)</a></p>
+
+<h3 id="google-cloud-official-documentation">Google Cloud Official Documentation</h3>
+
+<p><a href="https://cloud.google.com/docs">GCP Documentation</a></p>
+
+<p>Finally, Google’s documentation around GCP itself is a great resource for preparing this exam. I know it’s huge, but I would recommend going through the core concepts and best practices section of each service at least once. Because I have seen that answers for many questions are hidden inside the best practices documentation. For example, using indexes for Google Datastore/Firestore.</p>
+
+<h2 id="case-studies">Case Studies</h2>
+
+<p>Google offered three case studies for the exam, and it covers around 5 to 10% of questions (it may vary). It is good to learn and understand (not memorize) all those case studies prior to the exam as you may not have enough time in the exam to go through it. Google curated these case studies very smartly as each case study presents unique business problems, and they make sure the solutions cover most of the GCP services. You can read the case studies in Google official exam page to understand the details, but I covered the high-level view of each case study here.</p>
+
+<h3 id="mountkirk-games"><a href="https://cloud.google.com/certification/guides/cloud-architect/casestudy-mountkirkgames-rev2">Mountkirk Games</a></h3>
+
+<p>The business here requires an online game with a global presence. This case study is mostly around utilizing GCP’s computing power and autoscaling options. This tests your ability in designing the compute resources in such a way that it will autoscale (MIG or GKE) and serve requests with low latency around the globe (Global LB). It also talks about analytics platform. Remember the game writes several statistics data in time-series fashion (BigTable or BigQuery) and it needs to be analysed (BigQuery/DataStudio) for future game improvement as well.</p>
+
+<h3 id="terramearth"><a href="https://cloud.google.com/certification/guides/cloud-architect/casestudy-terramearth-rev2">TerramEarth</a></h3>
+
+<p>This case study is all about DATA. The ultimate goal of the business is to get the data to the users as soon as possible so that it can be used to understand the usage of the vehicle. This case study test our ability in designing an efficient data pipeline system that ingests (Pub/Sub) and process (Dataflow) the data as fast as possible in real-time. Some questions around this case study might talk about machine learning since one of the business problems is to pre-order the vehicle parts based on vehicle usage.</p>
+
+<h3 id="dress4win"><a href="https://cloud.google.com/certification/guides/cloud-architect/casestudy-dress4win-rev2">Dress4Win</a></h3>
+
+<p>This case study is mostly about migration, transition and managing hybrid cloud environments. The case study says they want to do a complete migration to GCP, but first, they only want to start with DEV, QA and DR environments. So for a considerable period of time, their system has to co-exist in both GCP and on-premises. This makes the design more challenging since the same code and design has to run in both on-premises and GCP. So the transition includes identifying equivalent services in GCP that incur less change in the existing system. For example, on-premises compute servers to GCP virtual machines, MySQL to Cloud SQL, Hadoop/Spark to Dataproc, etc. They also may test in areas on, how to transfer data between on-premises and GCP through private connections and how to do a production environment migration without downtime.</p>
+
+<h2 id="closing">Closing</h2>
+
+<ul>
+  <li>
+    <p>The good thing about GCP PCA exam is that Google not only tests our ability in using GCP services but also in general system architecture patterns. Keep in mind, some of the questions do not require a GCP product to be involved in the answer. This also makes the exam more challenging, since the scope or boundary of the exam cannot be defined clearly.</p>
+  </li>
+  <li>
+    <p>All the questions in the exam are scenario-based. I didn’t see a single question like -  What service to be used for high-speed data ingestion? Instead, they will present a real-time scenario and we need to pick the right service considering all the business problems and the best practices. Each and every word in the question is important. For example, a question like - A customer wants to use a relational transactional database in a cost-efficient way. What would you suggest? And the options may include Cloud SQL and Cloud Spanner. Both can be used to solve the problem, but the answer should be Cloud SQL as cost-efficient is the keyword here. (Cloud Spanner is really and seriously expensive !!! 😲)</p>
+  </li>
+  <li>
+    <p>Hands-on labs are really important to prepare for the exam. Qwiklabs and Linux academy offers the best environment for hands-on. Google also offers a year of $300 free credits, where you can play with all the GCP services for 1 year.</p>
+  </li>
+  <li>
+    <p>There are two modes of exam - onsite or online. (Most of the enterprise certifications now follow the same). I took the onsite proctored exam and I would highly recommend the same since online proctored has a lot of restrictions like - you need an empty room, nothing on the table, always show face in the camera, no external monitors and so on. And internet connectivity is another challenge. If the internet goes off in the middle, your exam might be submitted with partial progress (still a minute outage is OK I guess, but not sure). So it is better to find a nearby Kryterion centre and take the exam. Wear mask. 😷</p>
+  </li>
+  <li>
+    <p>The exam result does not present any score, it just says whether you are Pass or Fail. So if you fail, there is no feedback on which area to improve. So preparation is the key.</p>
+  </li>
+  <li>
+    <p>It is also recommended to take the Associate Cloud Engineer certification first if you are quite new to GCP, but it is not mandatory at the same time.</p>
+  </li>
+</ul>
+
+<p>Hope this helps. Let me know in comments if you have any other thoughts or questions. Good luck.</p>
+
+<p><a href="https/assets/blog/2020-11-09-how-i-cleared-gcp-pca-certification-exam//googlecloudcertified.credential.net/profile/5d49fb312e1b2b23ce7dcf9c3ba1452f7a42a7e5" rel="some text"><img src="./cert.jpg" alt="Jawahar - Professional Cloud Architect" title="Jawahar - Professional Cloud Architect" /></a></p>]]></content><author><name>Jawahar Selvaraj</name></author><summary type="html"><![CDATA[I started practising Google cloud platform couple of years back, working mostly with Google Kubernetes engine and other few services like compute engine, networks and firewalls. Though I had a considerable amount of experience in software development, cloud computing was one of my new areas to explore.]]></summary></entry></feed>

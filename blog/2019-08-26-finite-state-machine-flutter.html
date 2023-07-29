@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Finite state machine in Flutter | Jawahar Selvaraj</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Finite state machine in Flutter" />
+<meta name="author" content="Jawahar Selvaraj" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Have you ever worked with a system, where it often end up in an unexpected state?" />
+<meta property="og:description" content="Have you ever worked with a system, where it often end up in an unexpected state?" />
+<link rel="canonical" href="https://jawahar.tech/blog/2019-08-26-finite-state-machine-flutter" />
+<meta property="og:url" content="https://jawahar.tech/blog/2019-08-26-finite-state-machine-flutter" />
+<meta property="og:site_name" content="Jawahar Selvaraj" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-26T22:12:03+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Finite state machine in Flutter" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Jawahar Selvaraj"},"dateModified":"2019-08-26T22:12:03+00:00","datePublished":"2019-08-26T22:12:03+00:00","description":"Have you ever worked with a system, where it often end up in an unexpected state?","headline":"Finite state machine in Flutter","mainEntityOfPage":{"@type":"WebPage","@id":"https://jawahar.tech/blog/2019-08-26-finite-state-machine-flutter"},"url":"https://jawahar.tech/blog/2019-08-26-finite-state-machine-flutter"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jawahar.tech/feed.xml" title="Jawahar Selvaraj" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jawahar Selvaraj</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/bytes/">Bytes</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/videos/">Videos</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Finite state machine in Flutter</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2019-08-26T22:12:03+00:00" itemprop="datePublished">
+        Aug 26, 2019
+      </time></p><img src="/assets/blog/2019-08-26-finite-state-machine-flutter/traffic_light.jpg" /></header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Have you ever worked with a system, where it often end up in an unexpected state? For example, how about displaying both play and pause button at the same time in a media player. What about both red and green lights glowing at the sme time or an orange light turns to green in a traffic light system. These unexpected states are usually the result of poor handling of state transitions. A system must have a predefined set of states. The state of a system gets transferred to another state based on a certain external action. These transition between those states and actions those causing them should be clearly defined.</p>
+
+<blockquote>
+  <p>A finite state machine (sometimes called a finite state automaton) is a computation model that can be implemented with hardware or software and can be used to simulate sequential logic and some computer programs.</p>
+</blockquote>
+
+<p>Finite State Machine helps a lot in User Interface flow. xstate is a popular dart library to create a state machine. It can be used along with modern libraries like React or Vue for maximum efficiency. In this article I would like to create a simple state machine implementation in Flutter.</p>
+
+<p>Flutter is cross platform native mobile application development tool, powered by Dart programming language. The reason I picked Flutter to try this State Machine is - Flutter - similar to React uses declarative approach, not just to define the UI, but also the logic (state) for the UI. Flutter community recommends several approaches for state management in Flutter applications like Provider or BLoC. For simplicty I am going to stick to basic stateful widget to showcase our state machine implementation.</p>
+
+<p>Consider we have to build a simple stopwatch. It runs on clicking the start button and has options to pause/resume or stop the timer. Following is the simple state diagram for stopwatch state machine.</p>
+
+<p><img src="/assets/blog/2019-08-26-finite-state-machine-flutter/state_machine.png" alt="State machine flow diagram" /></p>
+
+<p>The number of states and transitions are clearly defined.</p>
+
+<p><strong>Initial</strong> - This is the initial state that represents timer 0 seconds.</p>
+
+<p><strong>Running</strong> - This is the active state of timer.</p>
+
+<p><strong>Idle</strong> - The is the passive state of timer. The timer is just paused.</p>
+
+<p>It is clear from the diagram, that from the initial state, the only possible next state is running and similar rules are there for other states also. These kind of constraints helps us to reduce bugs in state transition.</p>
+
+<p>Dart is a static typed language, so we can create separate types to represent State and Transitions.</p>
+
+<p>###State</p>
+
+<p>A state entity should define its transition nature. A state can have multiple transitions. From the diagram, the running state has two transitions - to initial and to idle. We consider only forward transitions, that implies our state is the source and any transition will result in a target state.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">State</span> <span class="p">{</span>
+  <span class="kt">List</span><span class="p">&lt;</span><span class="n">Transition</span><span class="p">&gt;</span> <span class="n">transitions</span><span class="p">;</span>
+  <span class="n">State</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="na">transitions</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>###Transition</p>
+
+<p>Lets look at Transition entity. Transition has to define the target state and the action that causes it.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Transition</span> <span class="p">{</span>
+  <span class="kt">String</span> <span class="n">action</span><span class="p">;</span>
+  <span class="kt">String</span> <span class="n">targetState</span><span class="p">;</span>
+  <span class="n">Transition</span><span class="p">({</span><span class="nd">@required</span> <span class="k">this</span><span class="o">.</span><span class="na">action</span><span class="p">,</span> <span class="nd">@required</span> <span class="k">this</span><span class="o">.</span><span class="na">targetState</span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>I annotate action and <code class="language-plaintext highlighter-rouge">targetState</code> as required explicitly, since named parameters are optional in Dart. And I need those parameters as named for better readability, when we define our state machine, which we will do it in a while.</p>
+
+<p>###State Machine
+State machine represents a collection of states and each state represents a collection of transitions. It also has another attribute to store the initial state. Current state of the machine has to exposed public, since we need this information in our widget to specify UI changes based on the state.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">StateMachine</span> <span class="p">{</span>
+  <span class="kt">Map</span><span class="p">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="n">State</span><span class="p">&gt;</span> <span class="n">_states</span><span class="p">;</span>
+  <span class="kt">String</span> <span class="n">_currentState</span><span class="p">;</span>
+  
+  <span class="kt">String</span> <span class="kd">get</span> <span class="n">currentState</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_currentState</span><span class="p">;</span>
+
+  <span class="n">StateMachine</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="kt">String</span> <span class="n">initialState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">_states</span> <span class="o">=</span> <span class="n">states</span><span class="p">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">_currentState</span> <span class="o">=</span> <span class="n">initialState</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We declared our state list as a hashmap. That’s an added advantage when compared to the classic model of state machine using switch case. In switch-case it has to evaluate a certain set of conditions to find the right state, whereas thats not the case with hashmap.</p>
+
+<p>But this is just an object model. It also required a function to make a transition from one state to another. The function accepts an action parameter and based on that it decides the next state.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">transition</span><span class="p">(</span><span class="kt">String</span> <span class="n">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">_currentState</span> <span class="o">=</span> <span class="k">this</span>
+      <span class="o">.</span><span class="na">_states</span><span class="p">[</span><span class="n">_currentState</span><span class="p">]</span>
+      <span class="o">.</span><span class="na">transitions</span>
+      <span class="o">.</span><span class="na">firstWhere</span><span class="p">((</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">t</span><span class="o">.</span><span class="na">action</span> <span class="o">==</span> <span class="n">action</span><span class="p">)</span>
+      <span class="o">.</span><span class="na">targetState</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The function is not doing any complex stuff. From the list of current state’s transitions, it identify the right one based on the action and return its target state.</p>
+
+<p>###Stopwatch State Machine
+Now the state machine implementation is ready, let’s define our states for stopwatch.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="n">stopwatchStateMachine</span> <span class="o">=</span> <span class="n">StateMachine</span><span class="p">({</span>
+  <span class="s">'running'</span><span class="o">:</span> <span class="n">State</span><span class="p">([</span>
+    <span class="n">Transition</span><span class="p">(</span><span class="nl">action:</span> <span class="s">'pause'</span><span class="p">,</span> <span class="nl">targetState:</span> <span class="s">'idle'</span><span class="p">),</span>
+    <span class="n">Transition</span><span class="p">(</span><span class="nl">action:</span> <span class="s">'stop'</span><span class="p">,</span> <span class="nl">targetState:</span> <span class="s">'initial'</span><span class="p">)</span>
+  <span class="p">]),</span>
+  <span class="s">'idle'</span><span class="o">:</span> <span class="n">State</span><span class="p">([</span>
+    <span class="n">Transition</span><span class="p">(</span><span class="nl">action:</span> <span class="s">'start'</span><span class="p">,</span> <span class="nl">targetState:</span> <span class="s">'running'</span><span class="p">),</span>
+    <span class="n">Transition</span><span class="p">(</span><span class="nl">action:</span> <span class="s">'stop'</span><span class="p">,</span> <span class="nl">targetState:</span> <span class="s">'initial'</span><span class="p">)</span>
+  <span class="p">]),</span>
+  <span class="s">'initial'</span><span class="o">:</span> <span class="n">State</span><span class="p">([</span>
+    <span class="n">Transition</span><span class="p">(</span><span class="nl">action:</span> <span class="s">'start'</span><span class="p">,</span> <span class="nl">targetState:</span> <span class="s">'running'</span><span class="p">)</span>
+  <span class="p">])</span>
+<span class="p">},</span> <span class="s">'initial'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The hash of states and an initial state has been given as input to the state machine. And whenever we call the transition function, it compute the next state. Now it is just matter of define our UI based on the current state.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">List</span><span class="p">&lt;</span><span class="n">Widget</span><span class="p">&gt;</span> <span class="n">buttons</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">timerState</span><span class="o">.</span><span class="na">currentState</span> <span class="o">==</span> <span class="s">'idle'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+      <span class="n">ActionButton</span><span class="p">(</span><span class="s">'Resume'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_onAction</span><span class="p">(</span><span class="s">'start'</span><span class="p">)),</span>
+      <span class="n">ActionButton</span><span class="p">(</span><span class="s">'Stop'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_onAction</span><span class="p">(</span><span class="s">'stop'</span><span class="p">))</span>
+    <span class="p">];</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">timerState</span><span class="o">.</span><span class="na">currentState</span> <span class="o">==</span> <span class="s">'running'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+      <span class="n">ActionButton</span><span class="p">(</span><span class="s">'Pause'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_onAction</span><span class="p">(</span><span class="s">'pause'</span><span class="p">)),</span>
+      <span class="n">ActionButton</span><span class="p">(</span><span class="s">'Stop'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_onAction</span><span class="p">(</span><span class="s">'stop'</span><span class="p">))</span>
+    <span class="p">];</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">timerState</span><span class="o">.</span><span class="na">currentState</span> <span class="o">==</span> <span class="s">'initial'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">ActionButton</span><span class="p">(</span><span class="s">'Start'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="n">_onAction</span><span class="p">(</span><span class="s">'start'</span><span class="p">))];</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// Just to avoid warning</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The button panel has been decided based on the current state. With this implementation, we made sure hat we never end up in an unexpected state. In a classical approach, we would have introduced couple of boolean flags in our state and make decisions based on that. That code might get complex when new states and actions introduced. But adding a new state to the state machine is an easy task.</p>
+
+<p>If you notice every button press calls the same _<code class="language-plaintext highlighter-rouge">onAction</code> function with different action parameters. This is where we actually call the transition function of state machine.</p>
+
+<div class="language-dart highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">_onAction</span><span class="p">(</span><span class="kt">String</span> <span class="n">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">setState</span><span class="p">(()</span> <span class="o">=</span><span class="p">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">timerState</span><span class="o">.</span><span class="na">transition</span><span class="p">(</span><span class="n">action</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We do that in setState function, so that it automatically updates our UI widgets, whichever depends on the current state.</p>
+
+<p>##Closing
+This is a very minimal and simple implementation of State Machine. The implementation can be extended to support various features like hierarchical states and history tracking. Sometimes during development, I often consider state transitions as trivial, but as the complexity grows and number of new states gets introduced, I realised that it is always good to have a dedicated system like state machine to manage the states and its transitions.</p>
+
+<p>The example explained in this article is available in this <a href="https://github.com/jawahars16/finite-state-machine-flutter">git repository</a>.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://jawahar.tech/blog/2019-08-26-finite-state-machine-flutter';
+      this.page.identifier = 'https://jawahar.tech/blog/2019-08-26-finite-state-machine-flutter';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://jawahar-tech.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/2019-08-26-finite-state-machine-flutter" hidden></a>
+</article>
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://jawahar.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          jawahar.tech © All rights reserved.
+          <!-- <li class="p-name">Jawahar Selvaraj</li> -->
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://www.linkedin.com/in/jawaharselvaraj" target="_blank" title="linkedin">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/@jawahar.nutshell" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.instagram.com/@jawahar.tech" target="_blank" title="instagram">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/jawahars16" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://twitter.com/jawahars_16" target="_blank" title="twitter">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://stackoverflow.com/users/1693776/jawahar" target="_blank" title="stackoverflow">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+<style>
+    #cookie-notice {
+        padding: 0.5rem 1rem;
+        display: none;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        background: #222;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #cookie-notice a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        #cookie-notice span {
+            display: block;
+            padding-top: 3px;
+            margin-bottom: 1rem;
+        }
+
+        #cookie-notice a {
+            position: relative;
+            bottom: 4px;
+        }
+    }
+</style>
+<div id="cookie-notice">
+    <span>We would like to use third party cookies and scripts to improve the functionality of this
+        website.</span>
+    <a id="cookie-notice-accept" class="btn btn-primary btn-sm">Approve</a>
+</div>
+<script>
+    function createCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+
+    if (readCookie('cookie-notice-dismissed') == 'true') {
+    } else {
+        document.getElementById('cookie-notice').style.display = 'block';
+    }
+    document.getElementById('cookie-notice-accept').addEventListener("click", function () {
+        createCookie('cookie-notice-dismissed', 'true', 31);
+        document.getElementById('cookie-notice').style.display = 'none';
+        location.reload();
+    });
+
+</script>
+
+</body>
+
+</html>

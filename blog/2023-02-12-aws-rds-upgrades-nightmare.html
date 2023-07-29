@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>AWS RDS Upgrades - Every enginner’s nightmare | Jawahar Selvaraj</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="AWS RDS Upgrades - Every enginner’s nightmare" />
+<meta name="author" content="Jawahar Selvaraj" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Upgrading a database is the stuff that nightmares are made of, especially when it comes to Amazon Web Services (AWS) Relational Database Service (RDS). It’s like trying to change a tire on a car that’s driving down the highway at 100 miles per hour!" />
+<meta property="og:description" content="Upgrading a database is the stuff that nightmares are made of, especially when it comes to Amazon Web Services (AWS) Relational Database Service (RDS). It’s like trying to change a tire on a car that’s driving down the highway at 100 miles per hour!" />
+<link rel="canonical" href="https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare" />
+<meta property="og:url" content="https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare" />
+<meta property="og:site_name" content="Jawahar Selvaraj" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-02-12T22:12:03+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="AWS RDS Upgrades - Every enginner’s nightmare" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Jawahar Selvaraj"},"dateModified":"2023-02-12T22:12:03+00:00","datePublished":"2023-02-12T22:12:03+00:00","description":"Upgrading a database is the stuff that nightmares are made of, especially when it comes to Amazon Web Services (AWS) Relational Database Service (RDS). It’s like trying to change a tire on a car that’s driving down the highway at 100 miles per hour!","headline":"AWS RDS Upgrades - Every enginner’s nightmare","mainEntityOfPage":{"@type":"WebPage","@id":"https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare"},"url":"https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jawahar.tech/feed.xml" title="Jawahar Selvaraj" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jawahar Selvaraj</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/bytes/">Bytes</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/videos/">Videos</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">AWS RDS Upgrades - Every enginner&#39;s nightmare</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2023-02-12T22:12:03+00:00" itemprop="datePublished">
+        Feb 12, 2023
+      </time></p><img src="/assets/blog/2023-02-12-aws-rds-upgrades-nightmare/featured-image.jpg" /></header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Upgrading a database is the stuff that nightmares are made of, especially when it comes to Amazon Web Services (AWS) Relational Database Service (RDS). It’s like trying to change a tire on a car that’s driving down the highway at 100 miles per hour! AWS RDS provides managed relational databases as a service, making it easier for businesses to set up, operate, and scale their databases in the cloud. But upgrading these databases to newer versions or modifying configuration settings can be a real hair-puller, causing downtime, data loss, and compatibility issues, making it an engineer’s nightmare. In this topic, we’ll explore the various aspects of upgrading an AWS RDS database, the common challenges faced, and best practices for a successful upgrade. So, grab a cup of coffee, sit back, and prepare to laugh (or cry) at the silly things that can go wrong during an RDS upgrade.</p>
+
+<h2 id="minor-version-upgrade">Minor version upgrade</h2>
+
+<p>Okay, let’s talk about minor version upgrades in AWS RDS.</p>
+
+<p>A minor version upgrade just means upgrading your database engine to a newer patch version within the same major version. For example, you’re currently running Amazon RDS for MySQL 5.7.23 and you want to upgrade to 5.7.24. This type of upgrade is generally considered the safer option because it’s just a small update to the database engine and AWS has already done their testing before releasing it.</p>
+
+<p>But still, even minor version upgrades can give you a headache if you’re not careful. That’s why it’s important to test everything thoroughly in a non-production environment before rolling it out to your live database.
+Upgrading is super easy, you can do it through the AWS Management Console, the AWS RDS API, or the AWS CLI. AWS RDS takes care of all the heavy lifting, like creating snapshots and spinning up a new instance with the updated version.</p>
+
+<p>So, to keep things running smoothly, it’s a good idea to keep your database engines up to date with the latest minor versions. But always make sure to plan your upgrade properly to avoid any unexpected downtime or data loss.</p>
+
+<p>Auto minor version upgrade</p>
+
+<p>Auto minor version upgrades allow you to automatically upgrade your database engine to the latest patch version within the same major version. This can be a time-saver, as you don’t have to manually initiate the upgrade every time a new patch version is released.
+However, it’s important to keep in mind that just because the upgrade is automated, doesn’t mean you can neglect testing it in a non-production environment first. Compatibility issues or unexpected problems can still arise, even with auto upgrades.</p>
+
+<p>Auto minor version upgrades are currently supported by the following database engines in AWS RDS:
+Amazon Aurora
+Amazon RDS for MySQL
+Amazon RDS for PostgreSQL
+Amazon RDS for MariaDB</p>
+
+<p>It’s important to note that the availability of auto minor version upgrades may vary depending on the specific version and edition of the database engine you are using. It’s always a good idea to check the AWS RDS documentation or reach out to AWS support to confirm the availability of auto minor version upgrades for your specific RDS instance.</p>
+
+<p><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Upgrading.html#USER_UpgradeDBInstance.Upgrading.AutoMinorVersionUpgrades">AWS Documentation</a></p>
+
+<h2 id="major-version-upgrade">Major version upgrade</h2>
+
+<p>Alright, let’s talk about major version upgrades in AWS RDS in a lighthearted way.
+So, you’ve been happily running Amazon RDS for MySQL 5.7 for a while now, but it’s time to upgrade to the latest and greatest version, MySQL 8.0. This is what we call a “major version upgrade.”</p>
+
+<p>Now, I know what you’re thinking, “Upgrading sounds like a blast! Can’t wait to spend my weekend watching database logs and holding my breath every time I hit the refresh button!” And you’re not wrong, major version upgrades can be a real nail-biter.</p>
+
+<p>The good news is, AWS RDS makes the process as smooth as possible, taking care of the heavy lifting for you and creating snapshots along the way. But it’s still important to thoroughly test the upgrade in a non-production environment first, just to make sure everything works as expected.</p>
+
+<p>So, why bother with a major version upgrade in the first place? Well, new versions often come with new features, improved performance, and increased security. Plus, it’s always fun to have the latest technology, right?</p>
+
+<p>In conclusion, while major version upgrades in AWS RDS can be a bit nerve-wracking, they are worth it in the end for the benefits they bring. And who knows, you might even have a little fun in the process! (Okay, maybe not, but you’ll have the satisfaction of knowing your database is up-to-date and running smoothly.)</p>
+
+<h2 id="blue-green-deployment">Blue Green Deployment</h2>
+
+<p>Let’s talk about blue-green deployment in AWS RDS, in a relaxed and informal manner.
+So, you’ve got a database running in AWS RDS and you want to deploy an update, but you don’t want to take any chances with downtime or disruptions. That’s where blue-green deployment comes in.</p>
+
+<p>In a blue-green deployment, you create two identical environments, one labeled “blue” and one labeled “green.” The “blue” environment is your current live database, while the “green” environment is the updated version of your database.
+Once the “green” environment is up and running, you switch all traffic over to it, making it the new live environment. If anything goes wrong, you can quickly switch back to the “blue” environment, which is still running the previous version of your database.</p>
+
+<p>This approach allows you to test the updated version of your database in a live environment before making it the primary one, reducing the risk of downtime or disruptions. It also makes rolling back to a previous version easier, if needed.
+In summary, blue-green deployment is a smart and safe way to deploy updates to your database in AWS RDS, allowing you to minimize the risk of downtime or disruptions and ensuring a smooth and seamless transition.</p>
+
+<blockquote>
+  <p>Currently, blue/green deployments are supported only for RDS for MariaDB and RDS for MySQL.</p>
+</blockquote>
+
+<p><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/blue-green-deployments.html">AWS Documentation</a></p>
+
+<h2 id="database-migration-services-dms">Database Migration Services (DMS)</h2>
+
+<p>Let’s talk about using AWS Database Migration Service (DMS) for major version upgrades.</p>
+
+<p>So, you’ve got an old and creaky database that needs a major upgrade, but you don’t want to go through the hassle of manually migrating all the data. Enter AWS DMS to the rescue!</p>
+
+<p>AWS DMS is a fully managed service that makes it easy to migrate your databases from one version to another, including major version upgrades. Whether you’re moving from MySQL 5.7 to 8.0, or Oracle 11g to 19c, AWS DMS has you covered.</p>
+
+<p>The process is pretty straightforward. You set up a replication instance, create a source and target endpoint, and let AWS DMS handle the rest. It’ll take care of the data migration, ongoing replication, and even schema conversion if needed. And the best part? You don’t have to worry about any downtime. AWS DMS uses a continuous data replication technique, so your source database can stay up and running during the migration, with minimal disruption to your applications.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Well folks, we’ve come to the end of our discussion about AWS RDS upgrades, the stuff that keeps engineers up at night (or at least close to it!). But let’s not forget to end on a light note.</p>
+
+<p>Upgrading your RDS instances can be a daunting task, but with the right tools and strategies in place, it doesn’t have to be a total nightmare. Whether you’re using blue-green deployments, AWS DMS, or some other approach, the key is to plan ahead, test thoroughly, and always have a backup plan in case things go south.</p>
+
+<p>And, who knows, with the right attitude and a little bit of humor, you might even start to enjoy the upgrade process (or at least look back and laugh about it later!). So, let’s raise a glass to the brave engineers out there who tackle RDS upgrades head-on, and to a future filled with smooth and successful database upgrades. Cheers!</p>
+
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare';
+      this.page.identifier = 'https://jawahar.tech/blog/2023-02-12-aws-rds-upgrades-nightmare';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://jawahar-tech.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/2023-02-12-aws-rds-upgrades-nightmare" hidden></a>
+</article>
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://jawahar.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          jawahar.tech © All rights reserved.
+          <!-- <li class="p-name">Jawahar Selvaraj</li> -->
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://www.linkedin.com/in/jawaharselvaraj" target="_blank" title="linkedin">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/@jawahar.nutshell" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.instagram.com/@jawahar.tech" target="_blank" title="instagram">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/jawahars16" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://twitter.com/jawahars_16" target="_blank" title="twitter">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://stackoverflow.com/users/1693776/jawahar" target="_blank" title="stackoverflow">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+<style>
+    #cookie-notice {
+        padding: 0.5rem 1rem;
+        display: none;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        background: #222;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #cookie-notice a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        #cookie-notice span {
+            display: block;
+            padding-top: 3px;
+            margin-bottom: 1rem;
+        }
+
+        #cookie-notice a {
+            position: relative;
+            bottom: 4px;
+        }
+    }
+</style>
+<div id="cookie-notice">
+    <span>We would like to use third party cookies and scripts to improve the functionality of this
+        website.</span>
+    <a id="cookie-notice-accept" class="btn btn-primary btn-sm">Approve</a>
+</div>
+<script>
+    function createCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+
+    if (readCookie('cookie-notice-dismissed') == 'true') {
+    } else {
+        document.getElementById('cookie-notice').style.display = 'block';
+    }
+    document.getElementById('cookie-notice-accept').addEventListener("click", function () {
+        createCookie('cookie-notice-dismissed', 'true', 31);
+        document.getElementById('cookie-notice').style.display = 'none';
+        location.reload();
+    });
+
+</script>
+
+</body>
+
+</html>

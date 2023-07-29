@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Gatsby in a nutshell | Jawahar Selvaraj</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Gatsby in a nutshell" />
+<meta name="author" content="Jawahar Selvaraj" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Gatsby is an open source framework. And it used to build blazing fast websites using modern technologies like React and GraphQL. Gatsby is recently becoming the default solution to build static websites." />
+<meta property="og:description" content="Gatsby is an open source framework. And it used to build blazing fast websites using modern technologies like React and GraphQL. Gatsby is recently becoming the default solution to build static websites." />
+<link rel="canonical" href="https://jawahar.tech/blog/2020-01-14-gatsby-in-a-nutshell" />
+<meta property="og:url" content="https://jawahar.tech/blog/2020-01-14-gatsby-in-a-nutshell" />
+<meta property="og:site_name" content="Jawahar Selvaraj" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-14T22:12:03+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Gatsby in a nutshell" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Jawahar Selvaraj"},"dateModified":"2020-01-14T22:12:03+00:00","datePublished":"2020-01-14T22:12:03+00:00","description":"Gatsby is an open source framework. And it used to build blazing fast websites using modern technologies like React and GraphQL. Gatsby is recently becoming the default solution to build static websites.","headline":"Gatsby in a nutshell","mainEntityOfPage":{"@type":"WebPage","@id":"https://jawahar.tech/blog/2020-01-14-gatsby-in-a-nutshell"},"url":"https://jawahar.tech/blog/2020-01-14-gatsby-in-a-nutshell"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jawahar.tech/feed.xml" title="Jawahar Selvaraj" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jawahar Selvaraj</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/bytes/">Bytes</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/videos/">Videos</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Gatsby in a nutshell</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-01-14T22:12:03+00:00" itemprop="datePublished">
+        Jan 14, 2020
+      </time></p><img src="/assets/blog/2020-01-14-gatsby-in-a-nutshell/gatsby.jpg" /></header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Gatsby is an open source framework. And it used to build blazing fast websites using modern technologies like React and GraphQL. Gatsby is recently becoming the default solution to build static websites.</p>
+<h2 id="the-problem">The problem</h2>
+
+<p>Before we jump into the details about Gatsby, we want to understand the limitations with traditional web development approach. In a traditional way browser sends request to the backend server. The server process the requests and decide what content it needs to serve.  The server application then requests data from the backend data store. The server application will then use the data to construct the HTML page and deliver it back to the browser. The browser renders the HTML page to the user. This is how a traditional web application works. But If you observe closely, you would realise that all these workflow happens during runtime. Handling the user request, fetching the content from data store and constructing the HTML page, everything happens at runtime. And that definitely affects the performance.</p>
+
+<p><img src="/assets/blog/2020-01-14-gatsby-in-a-nutshell/costly_runtime.png" alt="Costly Runtime" /></p>
+
+<p>Performance is one of the most critical thing in website development. Faster websites can make humans and Google bots happy. Usually developers have to put considerable effort to make the website faster. They need to understand the technology better to do that. For example a very good understanding of non blocking IO and concurrency is required to write CPU efficient code. Application developers usually don’t want to spend time on that, instead they want to focus on business problems.</p>
+
+<p>Scalability is another pain. When your site gets more traffic and the existing infrastructure is not capable of handling it, you should be worrying about scaling up the infrastructure. And also you have to scale it down when traffic goes down. It requires a continuous monitoring and management to make the website highly available.</p>
+
+<h2 id="gatsby-the-saviour">Gatsby, the saviour</h2>
+
+<p>Gatsby came up with the idea of constructing the HTML pages ahead of time. That reduces the cost of doing heavy computations at runtime. Unlike any other static site generators, Gatsby uses modern web development technologies like React, GraphQL and Webpack.</p>
+
+<p>Let’s see how Gatsby works in a high level. Gatsby fetches content from the data store. Data store could be a GIT repository, a REST api or a headless CMS. There are many options for loading data into React components. One of the most popular approach is to use GraphQL. React components declare the data they need in the form of GraphQL query. Gatsby now construct HTML pages from React components. And these HTML pages along with JavaScript and CSS will be uploaded to a static file storage server like AWS S3. Since all the HTML pages are already built and available at runtime, the website would now perform 10x times faster than a traditional web application. When content gets updated in the backend data store, the build process should be triggered again and a fresh set of assets will be deployed to the server.</p>
+
+<p><img src="/assets/blog/2020-01-14-gatsby-in-a-nutshell/gatsby-in-a-nutshell.png" alt="Gatsby in a Nutshell" /></p>
+
+<p>Gatsby also came up with a rich set of plugins that provides a great development experience.
+With simple <code class="language-plaintext highlighter-rouge">npm install</code> and few configuration changes, rich set of features can be integrated into your website. 
+Since HTML pages are pre built with Gatsby, the cost of deploying and serving them are cheaper compared to traditional web applications.
+Gatsby can provide offline support as well, transforming your site into a full-blown Progressive Web App.</p>
+
+<p>So in a nutshell if you want to build a static website using modern technologies like React and GraphQL, Gatsby is the better approach.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://jawahar.tech/blog/2020-01-14-gatsby-in-a-nutshell';
+      this.page.identifier = 'https://jawahar.tech/blog/2020-01-14-gatsby-in-a-nutshell';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://jawahar-tech.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/2020-01-14-gatsby-in-a-nutshell" hidden></a>
+</article>
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://jawahar.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          jawahar.tech © All rights reserved.
+          <!-- <li class="p-name">Jawahar Selvaraj</li> -->
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://www.linkedin.com/in/jawaharselvaraj" target="_blank" title="linkedin">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/@jawahar.nutshell" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.instagram.com/@jawahar.tech" target="_blank" title="instagram">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/jawahars16" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://twitter.com/jawahars_16" target="_blank" title="twitter">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://stackoverflow.com/users/1693776/jawahar" target="_blank" title="stackoverflow">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+<style>
+    #cookie-notice {
+        padding: 0.5rem 1rem;
+        display: none;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        background: #222;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #cookie-notice a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        #cookie-notice span {
+            display: block;
+            padding-top: 3px;
+            margin-bottom: 1rem;
+        }
+
+        #cookie-notice a {
+            position: relative;
+            bottom: 4px;
+        }
+    }
+</style>
+<div id="cookie-notice">
+    <span>We would like to use third party cookies and scripts to improve the functionality of this
+        website.</span>
+    <a id="cookie-notice-accept" class="btn btn-primary btn-sm">Approve</a>
+</div>
+<script>
+    function createCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+
+    if (readCookie('cookie-notice-dismissed') == 'true') {
+    } else {
+        document.getElementById('cookie-notice').style.display = 'block';
+    }
+    document.getElementById('cookie-notice-accept').addEventListener("click", function () {
+        createCookie('cookie-notice-dismissed', 'true', 31);
+        document.getElementById('cookie-notice').style.display = 'none';
+        location.reload();
+    });
+
+</script>
+
+</body>
+
+</html>

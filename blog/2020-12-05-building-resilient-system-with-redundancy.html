@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Building resilient system with redundancy | Jawahar Selvaraj</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Building resilient system with redundancy" />
+<meta name="author" content="Jawahar Selvaraj" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Redundancy is one of the common approach to provide resiliency to a system. So it means you’re actually duplicating the system components. So that in case if one component fails, the other can take the responsibility." />
+<meta property="og:description" content="Redundancy is one of the common approach to provide resiliency to a system. So it means you’re actually duplicating the system components. So that in case if one component fails, the other can take the responsibility." />
+<link rel="canonical" href="https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy" />
+<meta property="og:url" content="https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy" />
+<meta property="og:site_name" content="Jawahar Selvaraj" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-05T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Building resilient system with redundancy" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Jawahar Selvaraj"},"dateModified":"2020-12-05T00:00:00+00:00","datePublished":"2020-12-05T00:00:00+00:00","description":"Redundancy is one of the common approach to provide resiliency to a system. So it means you’re actually duplicating the system components. So that in case if one component fails, the other can take the responsibility.","headline":"Building resilient system with redundancy","mainEntityOfPage":{"@type":"WebPage","@id":"https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy"},"url":"https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jawahar.tech/feed.xml" title="Jawahar Selvaraj" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jawahar Selvaraj</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/bytes/">Bytes</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/videos/">Videos</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Building resilient system with redundancy</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-12-05T00:00:00+00:00" itemprop="datePublished">
+        Dec 5, 2020
+      </time></p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/flight.jpg" /></header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Redundancy is one of the common approach to provide resiliency to a system. So it means you’re actually duplicating the system components. So that in case if one component fails, the other can take the responsibility. Redundancy can be divided into two types, one is active-passive and another one is active-active. In case of active-passive one workload will be active, which is actually performing all the tasks and there is another workload that will be in passive state. In case of active-active both will be performing the task. So the major difference between these two models is - in case of active-passive model if the active workload goes down, there will be a manual intervention required to make the passive one active. But in case of active-active model, if one node goes down, the system will continue to operate without any issues. It looks like that the active-active model is more efficient here. But the decision between these two models has to be taken based on the business requirement.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/redundancy-types.png" alt="Redundancy" title="Redundancy" /></p>
+
+<p>So for example, let’s consider we are doing a website development and it requires two different environments - one is authoring environment and another one is consumer environment. Authoring environment is used by the content authors internally to upload the content to the system. The consumer environment is where the end users will be consuming the content.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/website.png" alt="Website" title="Website" /></p>
+
+<p>So if you look at this diagram, we are using active-passive model for the authoring environment and active-active model for the consumer environment. The decision is because, it is not mission critical if authoring instance goes down. It wouldn’t impact the business much because it is for internal use and the users also hardly 50 to 100 users only (vary based on organisation). So a little downtime is acceptable in this case. But in case of consumer environment, the real website environment, no downtime is acceptable. So in case if the instance goes down, it will directly impact the business. And hence the active-active model would be the right choice. So the decision between these two model actually depends on the business needs.</p>
+
+<p>And it looks like there is a very common understanding that if you duplicate the components in a system, it will automatically increase the availability. But it is <a href="https://www.eventhelix.com/RealtimeMantra/FaultHandling/system_reliability_availability.htm">mathematically proven</a>.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/availability.png" alt="Availability" title="Availability" /></p>
+
+<p>Consider two workloads connected in parallel, and each workload has an availability of 99%. Actually 99% is not a good uptime, because it actually leads to some three days of downtime every year. But consider that these two workloads connected in parallel. According to this formula, the overall availability will become 99.99%, which is a very good availability for the system. And it is more than that compared to the individual availability. The biggest advantage with this approach is if you just increase the replicas, the overall availability will increase much.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/availability-2.png" alt="Availability" title="Availability" /></p>
+
+<p>Another thing to consider in this case is whenever we do the system design, not all the redundant architecture are resilient. So you can design a redundant architecture, but that doesn’t mean it is resilient. I can explain that with a simple example.</p>
+
+<p>Consider there are two buildings. And these two buildings are actually connected by a wire under the ground. And consider we want to implement the redundancy pattern here. So we just duplicate the wire, so that in case if one goes down, the other one will take care of the system. Also the wire has to be intact for the buildings to operate. Now, one day, suddenly someone actually dig a hole in the neighbourhood and they just break both wires at the same time, the whole system will go down. So this is the reason I’m telling that the system can be redundant, but it doesn’t mean that it is highly resilient. The highly resilient system would look something like this.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/resilient-wrong.png" alt="Resiliency" title="Resiliency" /></p>
+
+<p>You put one wire above the ground and another wire below the ground. If the same issue happens and the wire that is under the ground goes down, the system will continue to work. The point is the system shouldn’t go down from a single source of failure.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/resilient-correct.png" alt="Resiliency" title="Resiliency" /></p>
+
+<p>Typically, in software architecture, especially in the cloud environment, we usually apply redundancy by duplicating the number of workloads that we use. If you look at the diagram, these workloads running inside a virtual machine. So now we have to think about the fact what happens if the virtual machine goes down that will put the whole system down right. So it is always a best practice to distribute your workloads across the virtual machines. So that in case if one machine goes down, other machine will take care of the system responsibility.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/vm.png" alt="VM" title="VM" /></p>
+
+<p>But again, if you look at the virtual machine has to run in some kind of a data centre. Basically, data centre is a place where your cloud provider actually keep all the configuration and your virtual machine might be running in one of the datacenter. Now the thing is what if the datacenter goes down, your whole system will again go down right. So it is a best practice to distribute the virtual machines across the datacenter. But most of the cloud providers do not provide you an option to choose the data centre. But they provide another option called availability zone. So you can choose an availability zone where you want to deploy those machines.</p>
+
+<p>The availability zone may not directly mapped to the data centre. Usually, availability zone can have more than one or two data centres as well. But the thing that we have to keep in mind here is these zones are actually located far from each other. So that if something happens in one zone, it will not impact the other zone. And at the same time, these zones are connected with high speed network for enabling high speed replication.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/az.png" alt="Availability Zone" title="Availability Zone" /></p>
+
+<p>And in some cases, the cloud providers logically group these availability zones under region. And some applications consider this multi region infrastructure. That is a good one. But it also has some downsides like the cost will be too high, and the replication will be slower.</p>
+
+<p><img src="/assets/blog/2020-12-05-building-resilient-system-with-redundancy/replication-lag.png" alt="Replication Lag" title="Replication Lag" /></p>
+
+<p>Also regional failure is a rare scenario - it’s not a thing that happen often. And one of the good example for multi region redundancy model is the CDN service. CDN has multiple edge locations around the globe. It serves the content to the users without any latency. But CDN also gives some advantages from the resiliency point of view as well. In case if the origin server goes down, the content will be still served to the users without any downtime for some period, because the content will be cached in all these edge locations. Though there are lot of options available for redundancy, the option has to be chosen based on business requirements.</p>
+
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy';
+      this.page.identifier = 'https://jawahar.tech/blog/2020-12-05-building-resilient-system-with-redundancy';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://jawahar-tech.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/2020-12-05-building-resilient-system-with-redundancy" hidden></a>
+</article>
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://jawahar.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          jawahar.tech © All rights reserved.
+          <!-- <li class="p-name">Jawahar Selvaraj</li> -->
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://www.linkedin.com/in/jawaharselvaraj" target="_blank" title="linkedin">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/@jawahar.nutshell" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.instagram.com/@jawahar.tech" target="_blank" title="instagram">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/jawahars16" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://twitter.com/jawahars_16" target="_blank" title="twitter">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://stackoverflow.com/users/1693776/jawahar" target="_blank" title="stackoverflow">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+<style>
+    #cookie-notice {
+        padding: 0.5rem 1rem;
+        display: none;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        background: #222;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #cookie-notice a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        #cookie-notice span {
+            display: block;
+            padding-top: 3px;
+            margin-bottom: 1rem;
+        }
+
+        #cookie-notice a {
+            position: relative;
+            bottom: 4px;
+        }
+    }
+</style>
+<div id="cookie-notice">
+    <span>We would like to use third party cookies and scripts to improve the functionality of this
+        website.</span>
+    <a id="cookie-notice-accept" class="btn btn-primary btn-sm">Approve</a>
+</div>
+<script>
+    function createCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+
+    if (readCookie('cookie-notice-dismissed') == 'true') {
+    } else {
+        document.getElementById('cookie-notice').style.display = 'block';
+    }
+    document.getElementById('cookie-notice-accept').addEventListener("click", function () {
+        createCookie('cookie-notice-dismissed', 'true', 31);
+        document.getElementById('cookie-notice').style.display = 'none';
+        location.reload();
+    });
+
+</script>
+
+</body>
+
+</html>

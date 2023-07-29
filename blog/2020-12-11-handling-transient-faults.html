@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Handling transient faults | Jawahar Selvaraj</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Handling transient faults" />
+<meta name="author" content="Jawahar Selvaraj" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="All these days, web development has gone through several changes and improvements. Days are gone, when HTML, CSS and JS are hand-curated and deployed into a static storage server through FTP. With that approach, each HTML file might represent a web page and share common stylesheets and scripts." />
+<meta property="og:description" content="All these days, web development has gone through several changes and improvements. Days are gone, when HTML, CSS and JS are hand-curated and deployed into a static storage server through FTP. With that approach, each HTML file might represent a web page and share common stylesheets and scripts." />
+<link rel="canonical" href="https://jawahar.tech/blog/2020-12-11-handling-transient-faults" />
+<meta property="og:url" content="https://jawahar.tech/blog/2020-12-11-handling-transient-faults" />
+<meta property="og:site_name" content="Jawahar Selvaraj" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-11T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Handling transient faults" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Jawahar Selvaraj"},"dateModified":"2020-12-11T00:00:00+00:00","datePublished":"2020-12-11T00:00:00+00:00","description":"All these days, web development has gone through several changes and improvements. Days are gone, when HTML, CSS and JS are hand-curated and deployed into a static storage server through FTP. With that approach, each HTML file might represent a web page and share common stylesheets and scripts.","headline":"Handling transient faults","mainEntityOfPage":{"@type":"WebPage","@id":"https://jawahar.tech/blog/2020-12-11-handling-transient-faults"},"url":"https://jawahar.tech/blog/2020-12-11-handling-transient-faults"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jawahar.tech/feed.xml" title="Jawahar Selvaraj" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jawahar Selvaraj</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/bytes/">Bytes</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/videos/">Videos</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Handling transient faults</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-12-11T00:00:00+00:00" itemprop="datePublished">
+        Dec 11, 2020
+      </time></p><img src="/assets/blog/2020-12-11-handling-transient-faults/featured.jpg" /></header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Transient faults are temporary failures that happen in a system for a short period. After some time it recovers automatically without any human intervention. For example, consider you’re actually consuming a particular service, and the service might not be available, it might be very busy at that moment. And it might return you a failure response. After sometime, if you try the same request, it might succeed.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/transient-faults.png" alt="Transient Faults" title="Transient Faults" /></p>
+
+<p>It might sound silly, but it is actually real, this can happen. AWe need to now think about why handling transient fault is very important to the system design. Earlier everything was monolithic. If one domain wants to communicate to another domain, the communication has to happen through a local function. So there is nothing to worry about latency or reliability. But in case of a micro services application, a domain has to communicate to another domain across the network. And that’s where all the challenges comes into place.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/monolith.png" alt="Monolith" title="Monolith" /></p>
+
+<p>Because we all know the fact that,</p>
+
+<blockquote>
+  <p>Network is unreliable</p>
+</blockquote>
+
+<p>And the reason that I’m saying that network is unreliable is even now you can go to your internet browser and do a speed test. There are a lot of websites that will provide that option, right. You can just go ahead and do a speed test, it will tell you some 50 Mbps speed maybe. But after five minutes, if you try the same speed test again, it won’t give you the same result. The reason is - network always undergo a lot of fluctuations and its reliability is influenced by several factors.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/fallacies.png" alt="Fallacies" title="Fallacies" /></p>
+
+<p>This is one of the popular paper about distributed computing. This paper is actually talking about eight wrong assumptions an architect can have while doing the system design. If you look at the first two, three points, they are all talking about the network reliability because in distributed computing, network would become the major source of transient faults.</p>
+
+<h2 id="retry">Retry</h2>
+
+<p>Consider, for example, we are designing an e-commerce platform. The user has to update some kind of contact information in the system. So internally the website is actually raising a request to the user service. And for some reason, the user service is not available and it is busy, so it returns a timeout response. So now at this moment, we have to think about how to handle that failure. There are two approaches - either you can just throw the error to the user face and say the system is not available now and you can try it later. Or you can actually handle the retry internally. Then you might be able to provide a success response to the user.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/retry.png" alt="Retry" title="Retry" /></p>
+
+<h2 id="exponential-backoff">Exponential Backoff</h2>
+
+<p>And one thing that we have to note here is not every time we will get a success response after the first retry itself, there is no guarantee like that. So we may have to configure the system in such a way that it has to do multiple retries and then it gets a success response. So, while doing the multiple retries, there are several things that we have to consider, because the problem is, whenever service raising a request to the target server to process the request, the target service has to consume some amount of CPU and memory. And when the target service actually return a response, I mean, after it closed the connection and return the response, it’s not going to release the CPU and memory immediately, it will take some time to release the CPU and memory. If we keep retrying for every 1 second, the target service is going to consume a lot of resources, and it is going to put the whole system in trouble. So there are a lot of patterns around it how to solve this problem. One common pattern is, instead of having a static retry interval, we can increment the retry interval exponentially. For example, do retry in 1 second, and then increment to 2 second, and then 4 seconds like that. This pattern is actually called exponential back off. This will let the target service to release the resources, it gives enough time for the service to free the resources.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/exponential-backoff.png" alt="Exponential Backoff" title="Exponential Backoff" /></p>
+
+<p>Another thing we have to consider is what kind of retry pattern to adapt, and how many, and what is the limit of retries that we should keep in the system, because we can’t just do the retries indefinitely. So there must be some limit in the number of retries that we can do. This decision again depends on the business requirements and the needs.</p>
+
+<p>For example, in one of my project, we have a requirement like the user will be browsing the website. And from the background, we actually have to collect the user behaviour, we have to track the user behaviour and send that information to marketing system for some analytics purpose. The challenge here is the marking system might respond with the failure code sometimes. So we actually implemented a retry logic where the back end service will continue to do the retry, and then it will try to push the data to the marketing system successfully. So here, the thing here is the user is actually not waiting for any response from the system. Actually, the user don’t even know there is a background job running something like that and is actually collecting the data, except he clicked the <em>Accept Cookies</em> button. 😆 So it is totally okay to have large number of retries here, because the user is not waiting for any response. But in case if the user is actually waiting for the response, we have to carefully consider the pattern and the number of retries that we have to do because we may let the user wait for a longer time.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/marketing.png" alt="Marketing" title="Marketing" /></p>
+
+<p>In that case, we may have to return a failure code or a fallback response to the user. Another important thing to consider during the retries is, we should make sure that the retries are idempotent because some HTTP endpoints like POSTs are not idempotent. If you do a lot of POST retries, you might end up duplicating the data in the database. So that is something to consider.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/idempotent.jpg" alt="Idempotent" title="Idempotent" /></p>
+
+<h2 id="circuit-breaker">Circuit Breaker</h2>
+
+<p>Another common pattern to handle the transient fault is circuit breaker. This is one of the sophisticated pattern to handle the transient faults. The name circuit breaker actually comes from the field of electrical field. In case if there is a huge sudden spike in the electricity flow, the statute actually automatically opens so that the electricity flow doesn’t damage the other parts of the system. That’s the whole point of circuit breaker. We can actually apply the same concept in the software design as well. There are two reasons why we need circuit breaker to solve problems.</p>
+
+<p>One thing when the target service is responding with failure code, the service will do a lot of retries. But what if that is not a transient fault? What if it is a permanent failure? So your service might be doing a lot of requests again and again and it might put the whole system in trouble.</p>
+
+<p>Another important thing to consider is when you raise the request to the target service, it will take a considerable amount of time before it gives you a timeout response. That is one of the irritating thing, that you have to wait for so long time and then it will say it failed. So instead of waiting for longer time To fail, why can’t we fail fast. That is the whole concept of circuit breaker. Circuit breaker actually works like a state machine, it has three states one is half open, closed and open. Closed is the default state of a circuit breaker, which means you allow all the connections to go through. In case the target service returning the failure response and if it reached the failure threshold, it automatically move to the open state. In open state no connections are allowed. After some configurable time, it will move to the half open state which means it allows limited number of requests to go through and it checks if the target service is returning a failure response. If the service is returning a success response then it moves the state to the closed state which is again the usual state, where it allow all the requests to go through. But in case if the target service is returning a failure response, it goes to the open state where no connections are allowed.</p>
+
+<p><img src="/assets/blog/2020-12-11-handling-transient-faults/cb.png" alt="Circuit Breaker" title="Circuit Breaker" /></p>
+
+<p>This is another sophisticated method to handle the transient faults. And again, you don’t have to implement the pattern from the scratch, you don’t have to reinvent the wheel, there are a lot of tools and libraries available, which actually implemented the logic. We have to understand the underlying concept and we should be able to configure the values according to the business needs.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://jawahar.tech/blog/2020-12-11-handling-transient-faults';
+      this.page.identifier = 'https://jawahar.tech/blog/2020-12-11-handling-transient-faults';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://jawahar-tech.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/2020-12-11-handling-transient-faults" hidden></a>
+</article>
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://jawahar.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          jawahar.tech © All rights reserved.
+          <!-- <li class="p-name">Jawahar Selvaraj</li> -->
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://www.linkedin.com/in/jawaharselvaraj" target="_blank" title="linkedin">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/@jawahar.nutshell" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.instagram.com/@jawahar.tech" target="_blank" title="instagram">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/jawahars16" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://twitter.com/jawahars_16" target="_blank" title="twitter">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://stackoverflow.com/users/1693776/jawahar" target="_blank" title="stackoverflow">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+<style>
+    #cookie-notice {
+        padding: 0.5rem 1rem;
+        display: none;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        background: #222;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #cookie-notice a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        #cookie-notice span {
+            display: block;
+            padding-top: 3px;
+            margin-bottom: 1rem;
+        }
+
+        #cookie-notice a {
+            position: relative;
+            bottom: 4px;
+        }
+    }
+</style>
+<div id="cookie-notice">
+    <span>We would like to use third party cookies and scripts to improve the functionality of this
+        website.</span>
+    <a id="cookie-notice-accept" class="btn btn-primary btn-sm">Approve</a>
+</div>
+<script>
+    function createCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+
+    if (readCookie('cookie-notice-dismissed') == 'true') {
+    } else {
+        document.getElementById('cookie-notice').style.display = 'block';
+    }
+    document.getElementById('cookie-notice-accept').addEventListener("click", function () {
+        createCookie('cookie-notice-dismissed', 'true', 31);
+        document.getElementById('cookie-notice').style.display = 'none';
+        location.reload();
+    });
+
+</script>
+
+</body>
+
+</html>

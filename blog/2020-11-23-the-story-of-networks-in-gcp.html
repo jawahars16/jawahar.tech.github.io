@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>The story of networks in GCP | Jawahar Selvaraj</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="The story of networks in GCP" />
+<meta name="author" content="Jawahar Selvaraj" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A software system is a collection of several components connected to each other. Networking is crucial in any software system. It’s highly important in system design to plan and implement, how the different hardware/virtual components connected to each other." />
+<meta property="og:description" content="A software system is a collection of several components connected to each other. Networking is crucial in any software system. It’s highly important in system design to plan and implement, how the different hardware/virtual components connected to each other." />
+<link rel="canonical" href="https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp" />
+<meta property="og:url" content="https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp" />
+<meta property="og:site_name" content="Jawahar Selvaraj" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-11-23T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="The story of networks in GCP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Jawahar Selvaraj"},"dateModified":"2020-11-23T00:00:00+00:00","datePublished":"2020-11-23T00:00:00+00:00","description":"A software system is a collection of several components connected to each other. Networking is crucial in any software system. It’s highly important in system design to plan and implement, how the different hardware/virtual components connected to each other.","headline":"The story of networks in GCP","mainEntityOfPage":{"@type":"WebPage","@id":"https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp"},"url":"https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jawahar.tech/feed.xml" title="Jawahar Selvaraj" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jawahar Selvaraj</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/bytes/">Bytes</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/videos/">Videos</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">The story of networks in GCP</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2020-11-23T00:00:00+00:00" itemprop="datePublished">
+        Nov 23, 2020
+      </time></p><img src="/assets/blog/2020-11-23-the-story-of-networks-in-gcp/featured.jpg" /></header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>A software system is a collection of several components connected to each other. Networking is crucial in any software system. It’s highly important in system design to plan and implement, how the different hardware/virtual components connected to each other. It is also important to understand the difference between private and public networks. A private network is limited and accessible only to your system whereas public network or internet is available to everyone. Of course, you are reading this post through public Internet. Consider you have to connect a printer in your home. Or you want to connect your mobile and PC to share files. You just have to enable a private communication between these devices. It doesn’t make any sense to expose your printer into a public network and connect to it.</p>
+
+<p>Google Cloud Platform offers a highly advanced managed service to manage networking - <strong>Virtual Private Cloud</strong> (VPC). As the name implies this is private network service offered by Google Cloud.</p>
+
+<h2 id="why-vpc">Why VPC?</h2>
+<p>Consider we have to design a 3-tier web application - a front end, a back end, and a database layer. Fronted layer accepts incoming requests from users and forward it to back end and back end forward that to database. To achieve this, three virtual machines (a GCP service that offers virtual servers in contrast to hardware servers) can be created. These machines have to be connected to each other. Without VPC each machines has to be exposed to the public Internet and connected using external IP address. The following diagram describes the same.</p>
+
+<p><img src="/assets/blog/2020-11-23-the-story-of-networks-in-gcp/without-vpc.jpg" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<p>The requests that flows between these machines has to go through public Internet every time, which introduce unnecessary latency, and it’s not secure as well. VPC service provided by Google is designed to connect virtual machines private to your GCP project without exposing your infrastructure resources to public. With this approach only the front end server has to be exposed to public Internet to accept incoming requests and other servers will be connected within private network and talk to each other.</p>
+
+<p><img src="/assets/blog/2020-11-23-the-story-of-networks-in-gcp/with-vpc.JPG" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<p>The good thing about Google VPC is that a default VPC comes along with every new GCP project and has connectivity across the globe. Also, by default it has subnets created for each region.</p>
+
+<p>Google takes care of creating these VPC resources automatically. Though it provides options to create custom VPC with custom subnets in defined regions, most of the times a default VPC serves the purpose. I still remember that I created and ran my first server in GCP without knowing anything about VPC. Google Cloud is known good keeping things simple.  This probably may not be the case in other Cloud providers. But understanding the GCP VPC in detail helps us designing the system better.</p>
+
+<h2 id="subnets">Subnets</h2>
+
+<p>Subnets are logical division of large network. Consider you are sending a gift to me and how do you specify the address? If you mention it as <strong>Jawahar, India</strong> (never do this !!! 😅), just assume how hard it is going to be for the post person to find me. To make it simpler, you could say the address as <strong>Jawahar, Chennai, India</strong>. That makes the search limited to Chennai.  Similar to that IP addresses can also represent the subnets in addition to network and device.</p>
+
+<p><img src="./subnets.svg" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<p>The concept of subnets has nothing to do with GCP, it is a general networking concept. But GCP provide options to manage subnets easily. A default VPC comes with predefined subnets for each region. All subnets come with an IP range. We just have to make sure that IP ranges are not overlapping. To get more control over the networking, it is highly recommended creating a custom VPC and define the subnets as per your needs.</p>
+
+<h2 id="firewalls">Firewalls</h2>
+
+<p>Security is another important aspect to be considered in networking. When multiple components connect to each other, it’s crucial to define who has access to what. GCP provides a handy way to define firewall rules. A firewall rule in GCP is composed of 6 key aspects. Let’s understand each one.</p>
+
+<p><img src="/assets/blog/2020-11-23-the-story-of-networks-in-gcp/firewalls.png" alt="The story of networks in GCP" title="The story of networks in GCP" /></p>
+
+<h3 id="network">Network</h3>
+
+<p>A GCP project can contain multiple networks. So this field helps to specify which network, the rule applies to. By default, this would point to default network. I have encountered issues with firewall rules several times and realized the network is not pointing to the right one. So this field important to keep in mind, if you use multiple custom VPCs.</p>
+
+<h3 id="priority">Priority</h3>
+
+<p>This is to specify in which order the rules has to be applied. Priority can be 0 to 65535. Lower the number, higher the priority. To follow the principle of the least privilege it is recommended the block all communications with lower priority and enable required communications using high priority firewall rules.</p>
+
+<h3 id="direction">Direction</h3>
+
+<p>This is to define whether we want to control the ingress (incoming) or egress (outgoing) traffic.</p>
+
+<h3 id="action">Action</h3>
+
+<p>This defines whether you want to allow or deny certain traffic. Pretty straight forward.</p>
+
+<h3 id="source--targets">Source / Targets</h3>
+
+<p>The target defines where the firewall rule should apply to. It could be either all instances in a specified network or applicable only to the instances with certain network tags. An IP range can be specified to control the source traffic. IP range 0.0.0.0/0 refers to public network.</p>
+
+<h3 id="protocols--port">Protocols / Port</h3>
+
+<p>This defines what protocol we want to allow/deny traffic to. Say for example, if you want to block SSH access to virtual machines, specify the port 22. Similar to that other TCP ports ca also be specified like http (80), https (443), RDP (3389) and so on. It also supports UDP and other protocols.</p>
+
+<p>By default VPC comes along with two implied firewall rules, one is to allow all egress traffic and deny all ingress traffic. Also it comes with 4 pre-populated rules in default network.</p>
+
+<ul>
+  <li>Allow all internal traffic within a network. (<code class="language-plaintext highlighter-rouge">default-allow-internal</code>)</li>
+  <li>Allow all SSH traffic to VMs from any source. (<code class="language-plaintext highlighter-rouge">default-allow-ssh</code>)</li>
+  <li>Allow all RDP traffic to VMs from any source. Remote Desktop Protocol for Windows. (<code class="language-plaintext highlighter-rouge">default-allow-rdp</code>)</li>
+  <li>Allow all ICMP traffic to VMs from any source. To allow <code class="language-plaintext highlighter-rouge">ping</code> commands to work. (<code class="language-plaintext highlighter-rouge">default-allow-icmp</code>)</li>
+</ul>
+
+<hr />
+
+<p>Google Cloud network services are powerful. Users get to use the same network infrastructure which powers Gmail, Google Search and Maps. Also, GCP is known for keeping things simple. You can deploy an application into GCP with limited effort in network and security features, since GCP provides a basic setup by default and provide options for advanced customizations.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp';
+      this.page.identifier = 'https://jawahar.tech/blog/2020-11-23-the-story-of-networks-in-gcp';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://jawahar-tech.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/2020-11-23-the-story-of-networks-in-gcp" hidden></a>
+</article>
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://jawahar.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          jawahar.tech © All rights reserved.
+          <!-- <li class="p-name">Jawahar Selvaraj</li> -->
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://www.linkedin.com/in/jawaharselvaraj" target="_blank" title="linkedin">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/@jawahar.nutshell" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.instagram.com/@jawahar.tech" target="_blank" title="instagram">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/jawahars16" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://twitter.com/jawahars_16" target="_blank" title="twitter">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://stackoverflow.com/users/1693776/jawahar" target="_blank" title="stackoverflow">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+<style>
+    #cookie-notice {
+        padding: 0.5rem 1rem;
+        display: none;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        background: #222;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #cookie-notice a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        #cookie-notice span {
+            display: block;
+            padding-top: 3px;
+            margin-bottom: 1rem;
+        }
+
+        #cookie-notice a {
+            position: relative;
+            bottom: 4px;
+        }
+    }
+</style>
+<div id="cookie-notice">
+    <span>We would like to use third party cookies and scripts to improve the functionality of this
+        website.</span>
+    <a id="cookie-notice-accept" class="btn btn-primary btn-sm">Approve</a>
+</div>
+<script>
+    function createCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+
+    if (readCookie('cookie-notice-dismissed') == 'true') {
+    } else {
+        document.getElementById('cookie-notice').style.display = 'block';
+    }
+    document.getElementById('cookie-notice-accept').addEventListener("click", function () {
+        createCookie('cookie-notice-dismissed', 'true', 31);
+        document.getElementById('cookie-notice').style.display = 'none';
+        location.reload();
+    });
+
+</script>
+
+</body>
+
+</html>

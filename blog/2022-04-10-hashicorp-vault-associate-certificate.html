@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang=" en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Hashicorp Vault Associate Certification | Jawahar Selvaraj</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="Hashicorp Vault Associate Certification" />
+<meta name="author" content="Jawahar Selvaraj" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I successfully completed the requirements to be recognized as a Hashicorp Vault Associate." />
+<meta property="og:description" content="I successfully completed the requirements to be recognized as a Hashicorp Vault Associate." />
+<link rel="canonical" href="https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate" />
+<meta property="og:url" content="https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate" />
+<meta property="og:site_name" content="Jawahar Selvaraj" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-10T22:12:03+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Hashicorp Vault Associate Certification" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Jawahar Selvaraj"},"dateModified":"2022-04-10T22:12:03+00:00","datePublished":"2022-04-10T22:12:03+00:00","description":"I successfully completed the requirements to be recognized as a Hashicorp Vault Associate.","headline":"Hashicorp Vault Associate Certification","mainEntityOfPage":{"@type":"WebPage","@id":"https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate"},"url":"https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://jawahar.tech/feed.xml" title="Jawahar Selvaraj" />
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Jawahar Selvaraj</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/bytes/">Bytes</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/videos/">Videos</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+      <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Hashicorp Vault Associate Certification</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-04-10T22:12:03+00:00" itemprop="datePublished">
+        Apr 10, 2022
+      </time></p><img src="/assets/blog/2022-04-10-hashicorp-vault-associate-certificate/vault-cert.png" /></header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>On April 3, 2022, I successfully completed the requirements to be recognized as a Hashicorp Vault Associate.</p>
+
+<p><a href="https://www.credly.com/badges/4894e7d2-ca76-48e6-b40a-f1205131a82f/public_url">Badge issued in Credly</a></p>
+
+<p>For the last 3 months, I have been pairing with Hashicorp developers to setup production grade Vault clusters for an enterprise client. Though I had some knowledge and experience on secret management prior to this, there was a lot of learning especially in the last 3 months. Vault is one of the much sophisticated product (yes Hashicorp has other products like Terraform, Packer, Vagrant, Consul, etc) released by Hashicorp, especially for secret management.</p>
+
+<p>After practicing Vault for 3 months, I decided to take the certification. I learnt a lot during the pairing session with Hashicorp and of course who can teach you better than the actual product owners. 😀 But I still went through the <a href="https://learn.hashicorp.com/tutorials/vault/associate-study">study guide</a> proposed by Hashicorp for this certification.</p>
+
+<p>Study guide mostly point to their own documentation and concept overview sections in learn.hashicorp.com. Their documentation itself is a great source to clear this certification. They also have some <a href="https://learn.hashicorp.com/tutorials/vault/associate-questions?in=vault/associate-cert">sample questions</a> for those who want to understand the format of the questions.</p>
+
+<p>I have drafted few tips to prepare for the certification exam based on my experience,</p>
+
+<ul>
+  <li>
+    <p>There are very few scenario based questions, but it is still challenging to answer without practice. Just reading the documentation and getting a theoretical understanding is not enough.</p>
+  </li>
+  <li>
+    <p>Vault has both open source and enterprise version. You can use the open source version and spin out a local vault development environment within seconds. Below command creates a single server local dev environment. (This is only for dev environment and should not be used for production.)</p>
+
+    <p><code class="language-plaintext highlighter-rouge">vault server -dev</code></p>
+  </li>
+</ul>
+
+<h3 id="secret-engines">Secret Engines</h3>
+
+<ul>
+  <li>
+    <p>The core feature of Vault is secret engines and that is the reason why you use Vault. It is important to be aware of all the secret engines supported by Vault. No need to memorize, but should have a high level of knowledge of those.</p>
+  </li>
+  <li>
+    <p>Vault secret engines can be categorized into three - store, generate and encrypt. Vault KV can be used to store secrets. And there are few secret engines which can be used to generate credentials dynamically (like database, ssh, etc). Vault transit engine can be used to encrypt data.</p>
+  </li>
+  <li>Understand the differences between two versions (KV and KV V2). Practice KV secret engine a lot. Practice all the following activities in KV until you get comfortable.
+    <ul>
+      <li>Writing a secret</li>
+      <li>Retrieving a secret</li>
+      <li>Delete/Destroy a secret</li>
+      <li>Rollback a secret</li>
+      <li>List secrets</li>
+      <li>Undelete a secret</li>
+      <li>Patch a secret</li>
+    </ul>
+  </li>
+  <li>
+    <p>Try practicing at least a few dynamic secret engines. I recommend to try a database secret engine (postgres, mysql, etc). See how vault creates credentials for those databases and how it manage rotation, revoke, etc.</p>
+  </li>
+  <li>
+    <p>Have a very good understanding on leases. All dynamic secrets have a lease associated with them. Understand what you <u>can and cannot</u> do with a lease ID. I got a question like this - <u>Someone accidentally deleted a secret in database. Now how do you revoke the lease associated to that?</u> Make sure you practice all these scenarios.</p>
+  </li>
+  <li>Transit engine is an interesting one. You can definitely expect questions from it. Practice how to encrypt/decrypt data, how to rotate the encryption key, exporting the key, rewrap, etc. Keep in mind Vault never store encrypted data.</li>
+</ul>
+
+<h3 id="auth-method">Auth method</h3>
+
+<ul>
+  <li>
+    <p>This is another important feature of Vault. Vault provides a seamless way to authenticate, though your applications run in multiple environments like cloud, on-prem, etc. Vault supports multiple authentication methods. Make sure you are ware of all those auth methods.</p>
+  </li>
+  <li>
+    <p>Practice few auth methods especially userpass, github and approle. Have a good understanding of other methods as well. Understand which methods are <u>used for human, and which for machines</u>.</p>
+  </li>
+  <li>
+    <p>Get a detailed understanding of how tokens work. Tokens are the primary method of authentication. No matter which auth method you use, you are going to get a token at the end.</p>
+  </li>
+  <li>
+    <p>Some key things that need to be well understood,</p>
+    <ul>
+      <li>Difference between ttl and max-ttl.</li>
+      <li>Revoke and Renew a token.</li>
+      <li>Periodic tokens</li>
+      <li>Orphan tokens</li>
+      <li>Batch and Service tokens - when to use what.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="policies">Policies</h3>
+
+<ul>
+  <li>
+    <p>Every token is associated with one or more policies. Policies define what activities you can perform on particular resource within vault.</p>
+  </li>
+  <li>
+    <p>Resources like (secret engine, auth method, etc) are separated as mount paths. Have a good understanding on how the paths are structured and how to define it in policies.</p>
+  </li>
+  <li>
+    <p>How to use wildcards in policy paths to allow permissions on multiple paths.</p>
+  </li>
+  <li>
+    <p>In the exam, you might be given a policy and ask to choose all the valid statements. The statements define what permissions you will get with that policy.</p>
+  </li>
+</ul>
+
+<h3 id="others">Others</h3>
+
+<ul>
+  <li>
+    <p>Understand the architecture of Vault - encryption barrier, storage backends (what storage backends support HA and what not), cluster replication, etc.</p>
+  </li>
+  <li>
+    <p>Know the difference between Performance Replica and Disater Recovery replica.</p>
+  </li>
+  <li>
+    <p>Make sure you can perform activities through CLI, API and UI. There were some questions based on the Vault Web UI screenshots.</p>
+  </li>
+</ul>
+
+<hr />
+
+<p>The exam only supports online proctoring. That was a little challenging for me. I took other certification exams like GCP, Azure in Test centers, which was more comfortable. But with Hashicorp exams, there are no options except online. You need to have a clear desk, quiet room and a good internet connection.</p>
+
+<p>Online proctor might ask you to show the room in a 360 degree view. Make sure to use a personal laptop to avoid any MDM or firewall issues, which usually happens if you use office laptops. The exam was 1 hour long with 57 questions. At the end of the exam, you will know whether you pass or fail. But there is no clear information on the passing score. With good hands-on practice and good understanding of vault concepts, this certification is not a difficult one to pass.</p>
+
+<p>Good luck. 👍</p>
+
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate';
+      this.page.identifier = 'https://jawahar.tech/blog/2022-04-10-hashicorp-vault-associate-certificate';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://jawahar-tech.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/2022-04-10-hashicorp-vault-associate-certificate" hidden></a>
+</article>
+    </div>
+  </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://jawahar.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          jawahar.tech © All rights reserved.
+          <!-- <li class="p-name">Jawahar Selvaraj</li> -->
+          
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>I am a Software Engineer passionate in Cloud engineering and Golang programming. I use this website to share my learnings.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://www.linkedin.com/in/jawaharselvaraj" target="_blank" title="linkedin">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#linkedin"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/@jawahar.nutshell" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.instagram.com/@jawahar.tech" target="_blank" title="instagram">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/jawahars16" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://twitter.com/jawahars_16" target="_blank" title="twitter">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://stackoverflow.com/users/1693776/jawahar" target="_blank" title="stackoverflow">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#stackoverflow"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+<style>
+    #cookie-notice {
+        padding: 0.5rem 1rem;
+        display: none;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: calc(100% - 2rem);
+        background: #222;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    #cookie-notice a {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    @media (max-width: 767px) {
+        #cookie-notice span {
+            display: block;
+            padding-top: 3px;
+            margin-bottom: 1rem;
+        }
+
+        #cookie-notice a {
+            position: relative;
+            bottom: 4px;
+        }
+    }
+</style>
+<div id="cookie-notice">
+    <span>We would like to use third party cookies and scripts to improve the functionality of this
+        website.</span>
+    <a id="cookie-notice-accept" class="btn btn-primary btn-sm">Approve</a>
+</div>
+<script>
+    function createCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function eraseCookie(name) {
+        createCookie(name, "", -1);
+    }
+
+    if (readCookie('cookie-notice-dismissed') == 'true') {
+    } else {
+        document.getElementById('cookie-notice').style.display = 'block';
+    }
+    document.getElementById('cookie-notice-accept').addEventListener("click", function () {
+        createCookie('cookie-notice-dismissed', 'true', 31);
+        document.getElementById('cookie-notice').style.display = 'none';
+        location.reload();
+    });
+
+</script>
+
+</body>
+
+</html>
