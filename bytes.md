@@ -10,6 +10,5 @@ These are byte sized posts with a simple illustration.
     <h3>{{post.title}}</h3>
     {{post.content}}  
   <img src="{{post.image}}" />
-  <hr />
   {% endfor %}
 </div>
