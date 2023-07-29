@@ -57,7 +57,7 @@ header_pages:
 
 disqus:
   shortname: jawahar-tech
-  
+
 collections:
   bytes:
     output: true
@@ -67,6 +67,7 @@ collections:
     output: true
     permalink: /blog/:name
 
-url: "https://example.com" # the base hostname & protocol for your site
+url: "https://jawahar.tech" # the base hostname & protocol for your site
 plugins:
   - jekyll-sitemap
+baseurl: "" # the subpath of your site, e.g. /blog
