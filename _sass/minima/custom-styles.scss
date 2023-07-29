@@ -117,3 +117,16 @@
         background: gray;
     }
 }
+
+.certificates {
+    display: flex;
+    justify-items: center;
+    margin: auto;
+    width: 310px;
+
+    img {
+        width: 80px;
+        margin: auto;
+        display: block;
+    }
+}
