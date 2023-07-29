@@ -1,5 +1,4 @@
 ---
-permalink: isolation-containing-system-failures
 layout: post
 title: Isolation - Containing System failures
 date: "2020-12-07T00:00:00.000Z"

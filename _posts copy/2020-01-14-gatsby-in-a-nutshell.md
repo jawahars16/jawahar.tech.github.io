@@ -1,5 +1,4 @@
 ---
-permalink: gatsby-in-a-nutshell
 layout: post
 title: Gatsby in a nutshell
 date: "2020-01-14T22:12:03.284Z"

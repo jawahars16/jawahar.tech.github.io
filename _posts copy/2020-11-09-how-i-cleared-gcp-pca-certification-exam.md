@@ -1,5 +1,4 @@
 ---
-permalink: how-i-cleared-gcp-pca-certification-exam
 layout: post
 title: How I cleared GCP Cloud Architect certification
 date: "2020-11-09T22:12:03.284Z"

@@ -1,5 +1,4 @@
 ---
-permalink: hashicorp-vault-associate-certificate
 layout: post
 title: Hashicorp Vault Associate Certification
 date: "2022-04-10T22:12:03.284Z"
@@ -8,11 +7,9 @@ featuredImage: "/assets/blog/2022-04-10-hashicorp-vault-associate-certificate/va
 tileImage: "/assets/blog/2022-04-10-hashicorp-vault-associate-certificate/vault-badge.png"
 ---
 
-On April 3, 2022, I successfully completed the requirements to be recognized as a Hashicorp Vault Associate. 
+On April 3, 2022, I successfully completed the requirements to be recognized as a Hashicorp Vault Associate. For the last 3 months, I have been pairing with Hashicorp developers to setup production grade Vault clusters for an enterprise client. Though I had some knowledge and experience on secret management prior to this, there was a lot of learning especially in the last 3 months. Vault is one of the much sophisticated product (yes Hashicorp has other products like Terraform, Packer, Vagrant, Consul, etc) released by Hashicorp, especially for secret management.
 
 [Badge issued in Credly](https://www.credly.com/badges/4894e7d2-ca76-48e6-b40a-f1205131a82f/public_url)
-
-For the last 3 months, I have been pairing with Hashicorp developers to setup production grade Vault clusters for an enterprise client. Though I had some knowledge and experience on secret management prior to this, there was a lot of learning especially in the last 3 months. Vault is one of the much sophisticated product (yes Hashicorp has other products like Terraform, Packer, Vagrant, Consul, etc) released by Hashicorp, especially for secret management.
 
 After practicing Vault for 3 months, I decided to take the certification. I learnt a lot during the pairing session with Hashicorp and of course who can teach you better than the actual product owners. 😀 But I still went through the [study guide](https://learn.hashicorp.com/tutorials/vault/associate-study) proposed by Hashicorp for this certification. 
 

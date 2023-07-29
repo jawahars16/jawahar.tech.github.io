@@ -1,5 +1,4 @@
 ---
-permalink: building-resilient-system-with-redundancy
 layout: post
 title: Building resilient system with redundancy
 date: "2020-12-05T00:00:00.000Z"

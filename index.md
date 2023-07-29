@@ -2,6 +2,7 @@
 layout: home
 ---
 <img src="/assets/profile-circle.png" alt="Jawahar Selvaraj" class="profile-home"/>
+# Jawahar Selvaraj
 
 I am a Software Engineer passionate in Cloud engineering and Golang programming. I have several years of industry experience and proven ability to design, develop, and deploy scalable and reliable applications. I also have expertise in CI/CD, automation, and application release management.
 

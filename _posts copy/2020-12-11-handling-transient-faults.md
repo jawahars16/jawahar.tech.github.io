@@ -1,5 +1,4 @@
 ---
-permalink: handling-transient-faults
 layout: post
 title: Handling transient faults
 date: "2020-12-11T00:00:00.000Z"

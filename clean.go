@@ -12,6 +12,44 @@ import (
 )
 
 func main() {
+	updatePermaLink()
+}
+
+func updatePermaLink() {
+	path := "./_posts"
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		println(file.Name())
+		if file.Name() == ".DS_Store" {
+			continue
+		}
+		bits := strings.Split(file.Name(), "-")
+		// join the bits
+		fmt.Printf("%v\n", bits)
+		title := strings.Join(bits[3:], "-")
+		title = strings.Replace(title, ".md", "", 1)
+
+		println(title)
+		data, err := ioutil.ReadFile(fmt.Sprintf("%s/%s", path, file.Name()))
+		if err != nil {
+			log.Default().Print(err)
+			continue
+		}
+
+		content := string(data)
+		content = strings.Replace(content, "---", "---\npermalink: "+title, 1)
+		// println(content)
+		data = []byte(content)
+		ioutil.WriteFile(fmt.Sprintf("%s/%s", path, file.Name()), data, 0644)
+	}
+}
+
+func updatePosts() {
+
 	// iterate a directory
 	path := "./_posts"
 	files, err := ioutil.ReadDir(path)
