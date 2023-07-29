@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 <div>
-<img src="/assets/profile-circle.png" alt="Jawahar Selvaraj" class="profile"/>
+<img src="{{'/assets/profile-circle.png' | relative_url}}" alt="Jawahar Selvaraj" class="profile"/>
 <div class="social-links">
     {%- include social.html -%}
     <p />
