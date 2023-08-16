@@ -14,6 +14,8 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-analytics
+  - jekyll-sitemap
 
 # Theme-specific settings
 
@@ -61,11 +63,14 @@ disqus:
 collections:
   bytes:
     output: true
+    sort_by: date
   videos:
     output: true
   posts:
     output: true
+    sort_by: date
     permalink: /blog/:name
 
-plugins:
-  - jekyll-sitemap
+jekyll_analytics:
+  GoogleAnalytics:          
+    id: UA-129105691-1
