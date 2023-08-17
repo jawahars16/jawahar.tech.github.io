@@ -12,6 +12,26 @@ I am an individual contributor who loves to learn and experiment with new techno
 
 ---
 
+## Bytes
+
+These are some byte sized posts with a simple illustration.
+
+<div class="home-bytes">
+  {% assign sorted = site.bytes | reverse %}
+  {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+  {% for post in sorted limit:3 %}
+  <div class="byte">
+    <time>{{post.date | date: date_format}}</time>
+    <h3>{{post.title}}</h3>
+    <img src="{{post.image}}" />
+</div>
+{% endfor %}
+</div>
+<p />
+
+[Show all bytes](/bytes)
+
+---
 ## Latest blog posts
 
 <ul class="home-posts">
@@ -20,7 +40,7 @@ I am an individual contributor who loves to learn and experiment with new techno
     <img src="{{post.tileImage}}" />
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
     <div class="heading">
-    <span class="post-meta">{{ post.date | date: date_format }}</span>
+    <time class="post-meta">{{ post.date | date: date_format }}</time>
     <h3>
         <a class="post-link" href="{{ post.url | relative_url }}">
         {{ post.title | escape }}
@@ -37,24 +57,6 @@ I am an individual contributor who loves to learn and experiment with new techno
 <p />
 
 [Show all articles](/blog)
-
----
-
-## Bytes
-
-These are byte sized posts with a simple illustration.
-
-<div class="home-bytes">
-  {% for post in site.bytes limit:3 %}
-  <div class="byte">
-    <h3>{{post.title}}</h3>
-    <img src="{{post.image}}" />
-</div>
-{% endfor %}
-</div>
-<p />
-
-[Show all bytes](/bytes)
 
 ---
 

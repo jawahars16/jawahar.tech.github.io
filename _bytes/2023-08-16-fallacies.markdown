@@ -1,8 +1,8 @@
 ---
 layout: page
 title:  Fallacies of distributed computing
-date:   2023-07-26 14:46:39 +0200
 image: "/assets/bytes/fallacies.gif"
+sitemap: false
 ---
 
 These are the 8 false assumptions that programmers or architects make while designing distributed systems.

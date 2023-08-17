@@ -1,8 +1,8 @@
 ---
 layout: page
 title:  What is Reverse Proxy?
-date:   2023-07-26 14:46:39 +0200
 image: "/assets/bytes/reverse-proxy.png"
+sitemap: false
 ---
 
 **What is Proxy in first place?**

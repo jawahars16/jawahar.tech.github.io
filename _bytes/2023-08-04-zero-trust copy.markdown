@@ -1,8 +1,8 @@
 ---
 layout: page
 title:  What is Zero Trust security model?
-date:   2023-07-26 14:46:39 +0200
 image: "/assets/bytes/zero-trust.png"
+sitemap: false
 ---
 
 Traditional applications follow castle and moat security model. Also referred as Perimeter Security. Applications/data are protected by one thick layer of security. Inside the layer, everyone is trusted. Outside the layer, no one is trusted.

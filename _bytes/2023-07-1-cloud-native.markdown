@@ -1,8 +1,8 @@
 ---
 layout: page
 title:  "Five Pillars of Cloud Native architecture"
-date:   2023-07-26 14:46:39 +0200
 image: "/assets/bytes/pillars-cloud-native.png"
+sitemap: false
 ---
 
 **Automate! automate! automate !**

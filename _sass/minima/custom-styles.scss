@@ -18,7 +18,7 @@
     }
 
     li {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
 
         img {
             width: 30px;
@@ -97,6 +97,11 @@
             width: 80px;
         }
     }
+
+    time {
+        color: #333;
+        font-size: 13px;
+    }
 }
 
 .home-bytes {
@@ -113,6 +118,11 @@
         img {
             border: 1px solid #333;
         }
+    }
+
+    time {
+        color: #333;
+        font-size: 13px;
     }
 }
 

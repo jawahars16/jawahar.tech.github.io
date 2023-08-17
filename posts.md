@@ -21,6 +21,7 @@ permalink: /blog/
       </div>
       {{ post.excerpt | strip_html | strip_newlines | truncate: 360 }}
       <a href="{{ post.url | relative_url }}">Read More</a>
+      <hr />
     </li>
   {% endfor %}
   </ul>

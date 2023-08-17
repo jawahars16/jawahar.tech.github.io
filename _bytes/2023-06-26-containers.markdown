@@ -1,8 +1,8 @@
 ---
 layout: page
 title:  Basic Principles for operating containers
-date:   2023-07-26 14:46:39 +0200
 image: "/assets/bytes/containers.png"
+sitemap: false
 ---
 **Stateless**
 
