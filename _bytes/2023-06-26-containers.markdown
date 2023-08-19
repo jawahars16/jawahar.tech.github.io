@@ -8,6 +8,8 @@ sitemap: false
 
 Never keep state inside the containers.  That make the containers less flexible and hard to scale. 
 
+[expand]
+
 **Immutable**
 
 Don't try to change anything on a running container. If you want to apply a patch, create a new container.
@@ -25,3 +27,5 @@ Always expose health endpoints. Make sure the underlying platform can understand
 A privileged container has access to all resources in host, bypassing almost all the security features. Never run a container in privilege mode unless it is really really necessary.
 
 `$> docker run --privileged -d -p 8080:8080 golang`
+
+[/expand]

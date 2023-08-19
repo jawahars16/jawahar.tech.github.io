@@ -9,6 +9,8 @@ sitemap: false
 
 Automate everything including the infrastructure creation, application build, test, deployment cycle, workload scaling up / down and so on.
 
+[expand]
+
 **Defence in depth**
 
 Trust no one. Traditional applications are protected more from external traffic and considered internal traffic as always secure. But protect every layer and every service as if there is no difference between inside and outside.
@@ -25,3 +27,4 @@ Keep a close eye on your spendings. Cloud is all about “pay per use”. Make s
 
 Make sure to keep everything up-to date including application dependencies, cloud resources, database engine and so on. The longer you wait to update, the more you suffer.
 
+[/expand]

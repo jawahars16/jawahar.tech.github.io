@@ -7,6 +7,8 @@ sitemap: false
 
 Traditional applications follow castle and moat security model. Also referred as Perimeter Security. Applications/data are protected by one thick layer of security. Inside the layer, everyone is trusted. Outside the layer, no one is trusted.
 
+[expand]
+
 Problems with Permeter security,
 
 - One breach is enough to compromise the whole system.
@@ -22,3 +24,5 @@ Principles of Zero Trust Security Model,
 - Always verify.
 
 ** East-West: Traffic between services. North-West: External traffic.
+
+[/expand]

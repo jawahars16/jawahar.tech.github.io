@@ -4,12 +4,13 @@ title:  Fallacies of distributed computing
 image: "/assets/bytes/fallacies.gif"
 sitemap: false
 ---
-
 These are the 8 false assumptions that programmers or architects make while designing distributed systems.
 
 **1.Network is reliable**
 
 Networks are complex, dynamic and often unpredictable. Many reasons could lead to a network failure or network-related issues.
+
+[expand]
 
 **2.Latency is zero**
 
@@ -38,3 +39,5 @@ Just as latency isn’t zero, transporting data from one point to another has an
 **8.Network is homogeneous**
 
 Not even your home network is homogenous. It’s enough to have just two devices with different configurations (e.g., laptops or mobile devices) and using different transport protocols, and your network is heterogeneous.
+
+[/expand]
