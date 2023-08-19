@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Bytes
-permalink: /bytes/
+permalink: /bytes
 ---
 
 These are byte sized posts with a simple illustration.
