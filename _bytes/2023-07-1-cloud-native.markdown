@@ -1,5 +1,6 @@
 ---
 layout: page
+slug: five-pillars-of-cloud-native-architecture
 title:  "Five Pillars of Cloud Native architecture"
 image: "/assets/bytes/pillars-cloud-native.png"
 sitemap: false

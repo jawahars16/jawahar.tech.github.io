@@ -1,5 +1,6 @@
 ---
 layout: page
+slug: reverse-proxy
 title:  What is Reverse Proxy?
 image: "/assets/bytes/reverse-proxy.png"
 sitemap: false

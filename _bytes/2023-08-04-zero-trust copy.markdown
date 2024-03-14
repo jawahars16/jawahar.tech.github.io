@@ -1,5 +1,6 @@
 ---
 layout: page
+slug: zero-trust
 title:  What is Zero Trust security model?
 image: "/assets/bytes/zero-trust.png"
 sitemap: false

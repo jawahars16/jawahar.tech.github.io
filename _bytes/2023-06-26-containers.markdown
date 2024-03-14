@@ -1,5 +1,6 @@
 ---
 layout: page
+slug: basic-principles-for-operating-containers
 title:  Basic Principles for operating containers
 image: "/assets/bytes/containers.png"
 sitemap: false

@@ -1,5 +1,6 @@
 ---
 layout: page
+slug: service-discovery
 title:  What is Service Discovery?
 image: "/assets/bytes/service-discovery.png"
 sitemap: false

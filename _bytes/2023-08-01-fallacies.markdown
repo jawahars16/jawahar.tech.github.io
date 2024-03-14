@@ -1,5 +1,6 @@
 ---
 layout: page
+slug: fallacies
 title:  Fallacies of distributed computing
 image: "/assets/bytes/fallacies.gif"
 sitemap: false
