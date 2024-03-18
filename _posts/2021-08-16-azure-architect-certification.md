@@ -27,7 +27,7 @@ Since this is an Expert level certificate (other levels are available like Assoc
 
 For AZ-303, it is good to have some actual hands-on experience in Azure, since most of the questions are very detailed around implementation. An azure account can be created for free and it provides few all time free services and few 12 months free services. Also it gives a credit of $200 for the first month. 
 
-https://azure.microsoft.com/en-in/free/
+[https://azure.microsoft.com/en-in/free/](https://azure.microsoft.com/en-in/free/)
 
 I created an account and did some hands-on practices. After the first month, make sure you keep track of your spendings and stop the services after you experiment. Also I was actually working on a client project and Azure is the cloud provider. That makes my life easier , since I worked primarily with infrastructure in that project.
 

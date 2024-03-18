@@ -21,7 +21,7 @@ Upgrading is super easy, you can do it through the AWS Management Console, the A
 
 So, to keep things running smoothly, it's a good idea to keep your database engines up to date with the latest minor versions. But always make sure to plan your upgrade properly to avoid any unexpected downtime or data loss.
 
-Auto minor version upgrade
+### Auto minor version upgrade
 
 Auto minor version upgrades allow you to automatically upgrade your database engine to the latest patch version within the same major version. This can be a time-saver, as you don't have to manually initiate the upgrade every time a new patch version is released.
 However, it's important to keep in mind that just because the upgrade is automated, doesn't mean you can neglect testing it in a non-production environment first. Compatibility issues or unexpected problems can still arise, even with auto upgrades.

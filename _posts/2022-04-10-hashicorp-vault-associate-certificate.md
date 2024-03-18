@@ -24,7 +24,9 @@ I have drafted few tips to prepare for the certification exam based on my experi
 
 - Vault has both open source and enterprise version. You can use the open source version and spin out a local vault development environment within seconds. Below command creates a single server local dev environment. (This is only for dev environment and should not be used for production.)
 
-    `vault server -dev` 
+```
+> vault server -dev
+```
 
 ### Secret Engines
 
